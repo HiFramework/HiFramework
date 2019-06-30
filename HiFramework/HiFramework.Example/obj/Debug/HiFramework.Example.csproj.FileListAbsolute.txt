@@ -1,0 +1,11 @@
+D:\MyGit\github\HiFramework\HiFramework\HiFramework.Example\obj\Debug\HiFramework.Example.csprojAssemblyReference.cache
+D:\MyGit\github\HiFramework\HiFramework\HiFramework.Example\obj\Debug\HiFramework.Example.csproj.CoreCompileInputs.cache
+D:\MyGit\github\HiFramework\HiFramework\HiFramework.Example\bin\Debug\HiFramework.Example.exe
+D:\MyGit\github\HiFramework\HiFramework\HiFramework.Example\bin\Debug\HiFramework.Example.pdb
+D:\MyGit\github\HiFramework\HiFramework\HiFramework.Example\bin\Debug\HiFramework.Assert.dll
+D:\MyGit\github\HiFramework\HiFramework\HiFramework.Example\bin\Debug\HiFramework.Core.dll
+D:\MyGit\github\HiFramework\HiFramework\HiFramework.Example\bin\Debug\HiFramework.dll
+D:\MyGit\github\HiFramework\HiFramework\HiFramework.Example\bin\Debug\HiFramework.pdb
+D:\MyGit\github\HiFramework\HiFramework\HiFramework.Example\obj\Debug\HiFramework.Example.csproj.CopyComplete
+D:\MyGit\github\HiFramework\HiFramework\HiFramework.Example\obj\Debug\HiFramework.Example.exe
+D:\MyGit\github\HiFramework\HiFramework\HiFramework.Example\obj\Debug\HiFramework.Example.pdb

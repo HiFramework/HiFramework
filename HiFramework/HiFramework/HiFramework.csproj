@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9ADF7099-D6DA-48DF-B986-DF6AE18193E9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HiFramework</RootNamespace>
+    <AssemblyName>HiFramework</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HiFramework.Assert, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HiFramework.Assert.1.0.2\lib\net35\HiFramework.Assert.dll</HintPath>
+    </Reference>
+    <Reference Include="HiFramework.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HiFramework.Core.1.0.0\lib\net35\HiFramework.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Binder.cs" />
+    <Compile Include="Components\Event\ActionBase.cs" />
+    <Compile Include="Components\Event\Action_0.cs" />
+    <Compile Include="Components\Event\Action_1.cs" />
+    <Compile Include="Components\Event\Action_2.cs" />
+    <Compile Include="Components\Event\Action_3.cs" />
+    <Compile Include="Components\Event\Action_4.cs" />
+    <Compile Include="Components\Event\EventComponent.cs" />
+    <Compile Include="Components\Event\IEventComponent.cs" />
+    <Compile Include="Components\Inject\IInjectComponent.cs" />
+    <Compile Include="Components\Inject\InjectAttribute.cs" />
+    <Compile Include="Components\Inject\InjectBindAsName.cs" />
+    <Compile Include="Components\Inject\InjectBindInfo.cs" />
+    <Compile Include="Components\Inject\InjectBindInfoContainer.cs" />
+    <Compile Include="Components\Inject\InjectBinding.cs" />
+    <Compile Include="Components\Inject\InjectComponent.cs" />
+    <Compile Include="Components\IO\IIOComponent.cs" />
+    <Compile Include="Components\IO\IOComponent.cs" />
+    <Compile Include="Components\ObjectManager\IObjectManager.cs" />
+    <Compile Include="Components\ObjectManager\ObjectsManager.cs" />
+    <Compile Include="Components\Signal\ISignalComponent.cs" />
+    <Compile Include="Components\Signal\SignalComponent.cs" />
+    <Compile Include="Components\Signal\Signal_0.cs" />
+    <Compile Include="Components\Signal\Signal_1.cs" />
+    <Compile Include="Components\Signal\Signal_2.cs" />
+    <Compile Include="Components\Signal\Signal_3.cs" />
+    <Compile Include="Components\Signal\Signal_4.cs" />
+    <Compile Include="Extensions\Bits.cs" />
+    <Compile Include="Extensions\CircleBuffer\CircleBuffer.cs" />
+    <Compile Include="Extensions\CircleBuffer\ICircullarBuffer.cs" />
+    <Compile Include="Extensions\FastDictionary.cs" />
+    <Compile Include="Extensions\HiFloat.cs" />
+    <Compile Include="Extensions\ObjectBase.cs" />
+    <Compile Include="Extensions\Pool\IPool.cs" />
+    <Compile Include="Extensions\Pool\IPoolObject.cs" />
+    <Compile Include="Extensions\Pool\Pool.cs" />
+    <Compile Include="Extensions\Singleton.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
