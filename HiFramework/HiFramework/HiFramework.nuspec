@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0.0</version>
+    <title>HiFramework</title>
+    <authors>Hiram</authors>
+    <owners>Hiram</owners>
+    <licenseUrl>https://github.com/hiramtan/HiFramework</licenseUrl>
+    <projectUrl>https://github.com/hiramtan/HiFramework</projectUrl>
+    <iconUrl>https://github.com/hiramtan/HiFramework</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>HiFramework</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>Tag1 Tag2</tags>
+  </metadata>
+</package>
