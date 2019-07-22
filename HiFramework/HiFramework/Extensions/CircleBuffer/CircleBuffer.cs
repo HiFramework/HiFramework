@@ -4,306 +4,159 @@
  * Author: hiramtan@live.com
  ****************************************************************************/
 
+using HiFramework.Assert;
 using System;
 
 namespace HiFramework
 {
-    /// <summary>
-    /// This is a circular buffer class for reuse memory
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class CircularBuffer<T> : ICircularBuffer<T>
+    public class CirleBuffer<T> : ICircleBuffer<T>
     {
-        /// <summary>
-        /// Read and write state
-        /// </summary>
-        public enum State
+        public T[] Buffer { get; private set; }
+        public int Size
         {
-            WriteAhead,
-            ReadAhead,
-            WriteEqualRead, //init or read all data
+            get { return Buffer.Length; }
         }
-
-        /// <summary>
-        /// Array to contain element
-        /// </summary>
-        public T[] Array { get; private set; }
-
-        /// <summary>
-        /// Capacity
-        /// </summary>
-        public int Size { get; private set; }
-
-        /// <summary>
-        /// Current read and write state
-        /// </summary>
-        public State EState
+        public int BlockSize
         {
-            get
-            {
-                if (WritePosition > ReadPosition)
-                    return State.WriteAhead;
-                if (WritePosition < ReadPosition)
-                    return State.ReadAhead;
-                return State.WriteEqualRead;
-            }
+            get { return _blockSize; }
+            set { _blockSize = value; }
         }
-
-        /// <summary>
-        /// Index of read position(this index is wait to read)
-        /// </summary>
         public int ReadPosition { get; private set; }
-
-        /// <summary>
-        /// Index of write postion（this index is wait to write）
-        /// </summary>
         public int WritePosition { get; private set; }
+        private int _blockSize = 1 << 10;
 
-        /// <summary>
-        /// how many data can write into array
-        /// </summary>
-        public int HowManyCanWrite
+        private EState State
         {
             get
             {
-                int remain = 0;
-                if (EState == State.WriteAhead)
-                {
-                    remain = (Size - WritePosition) + ReadPosition;
-                }
-                else if (EState == State.ReadAhead) //writer back to head
-                {
-                    remain = ReadPosition - WritePosition;
-                }
-                else if (EState == State.WriteEqualRead)
-                {
-                    remain = Size;
-                }
-                return remain;
+                if (ReadPosition > WritePosition)
+                    return EState.ReadAhead;
+                if (ReadPosition < WritePosition)
+                    return EState.WriteAhead;
+                return EState.ReadWriteAreEqual;
             }
         }
 
-        /// <summary>
-        /// How many data wait read
-        /// </summary>
-        public int HowManyCanRead
+        public CirleBuffer(int size = 1 << 10)
         {
-            get
-            {
-                int remain = 0;
-                if (EState == State.WriteAhead)
-                {
-                    remain = WritePosition - ReadPosition;
-                }
-                else if (EState == State.ReadAhead) //writer back to head
-                {
-                    remain = (Size - ReadPosition) + WritePosition;
-                }
-                else if (EState == State.WriteEqualRead)
-                {
-                    remain = 0;
-                }
-                return remain;
-            }
+            Buffer = new T[size];
         }
 
-        public CircularBuffer(int size = 2 << 13)
+        public void MoveReadPostion(int length)
         {
-            Size = size;
-            Array = new T[Size];
+            AssertThat.IsTrue(ReadPosition + length < Size);
+            ReadPosition += length;
         }
 
-        /// <summary>
-        /// Move read index
-        /// </summary>
-        /// <param name="length"></param>
-        public void MoveReadPosition(int length)
+        public void MoveWritePosition(int length)
         {
-            if (length > HowManyCanRead)
-            {
-                throw new ArgumentOutOfRangeException("Read length large than data's length");
-            }
-            var index = ReadPosition + length;
-            if (index >= Size)
-            {
-                index -= Size;
-            }
+            AssertThat.IsTrue(WritePosition + length < Size);
+            WritePosition += length;
+        }
+
+        public void MoveReadPositionTo(int index)
+        {
+            AssertThat.IsTrue(index < Size);
             ReadPosition = index;
         }
 
-        /// <summary>
-        /// Move write index
-        /// </summary>
-        /// <param name="length"></param>
-        public void MoveWritePosition(int length)
+        public void MoveWritePostionTo(int index)
         {
-            if (length > HowManyCanWrite)
-            {
-                throw new Exception("Write length large than space");
-            }
-            var index = WritePosition + length;
-            if (index >= Size)
-            {
-                index -= Size;
-            }
+            AssertThat.IsTrue(index < Size);
             WritePosition = index;
-        }
-
-        /// <summary>
-        /// Write data to array
-        /// </summary>
-        /// <param name="array"></param>
-        public void Write(T[] array)
-        {
-            if (array.Length > HowManyCanWrite)
-            {
-                throw new Exception("Can not write so many data to array");
-            }
-
-            if (EState == State.WriteAhead)
-            {
-                var length = Size - WritePosition;
-                if (length >= array.Length) //write into end
-                {
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        Array[WritePosition + i] = array[i];
-                    }
-                }
-                else
-                {
-                    int arrayIndex = 0;
-                    for (int i = WritePosition; i < Size; i++) //write into end 
-                    {
-                        Array[WritePosition + arrayIndex] = array[arrayIndex];
-                        arrayIndex++;
-                    }
-                    var howManyAlreadWrite = arrayIndex; //alreay run arrayIndex++ so don't need +1
-                    for (int i = 0; i < array.Length - howManyAlreadWrite; i++) //write into head
-                    {
-                        Array[i] = array[howManyAlreadWrite + i];
-                        arrayIndex++;
-                    }
-                }
-            }
-            else if (EState == State.ReadAhead)
-            {
-                for (int i = 0; i < array.Length; i++)
-                {
-                    Array[WritePosition + i] = array[i];
-                }
-            }
-            else if (EState == State.WriteEqualRead)
-            {
-                var length = Size - WritePosition;
-                if (length >= array.Length) //write into end
-                {
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        Array[WritePosition + i] = array[i];
-                    }
-                }
-                else
-                {
-                    int arrayIndex = 0;
-                    for (int i = WritePosition; i < Size; i++) //write into end 
-                    {
-                        Array[i] = array[arrayIndex];
-                        arrayIndex++;
-                    }
-                    var howManyAlreadWrite = arrayIndex; //alreay run arrayIndex++ so don't need +1
-                    for (int i = 0; i < array.Length - howManyAlreadWrite; i++) //write into head
-                    {
-                        Array[i] = array[howManyAlreadWrite + i];
-                        arrayIndex++;
-                    }
-                }
-            }
-            else
-            {
-                throw new Exception("Write error");
-            }
-            MoveWritePosition(array.Length);
         }
 
         public T[] Read(int length)
         {
-            if (length > HowManyCanRead)
-            {
-                throw new Exception("Can not read so many data from array");
-            }
+            AssertThat.IsTrue(ReadPosition + length < Size);
             T[] array = new T[length];
-            if (EState == State.WriteAhead)
-            {
-                for (int i = 0; i < length; i++)
-                {
-                    array[i] = Array[ReadPosition + i];
-                }
-            }
-            else if (EState == State.ReadAhead)
-            {
-                var remainLength = Size - ReadPosition;
-                if (remainLength >= length)
-                {
-                    for (int i = 0; i < length; i++)
-                    {
-                        array[i] = Array[ReadPosition + i];
-                    }
-                }
-                else
-                {
-                    int arrayIndex = 0;
-                    for (int i = ReadPosition; i < Size; i++)
-                    {
-                        array[arrayIndex] = Array[i];
-                        arrayIndex++;
-                    }
-                    var howManyAlreadRead = arrayIndex; //alreay run arrayIndex++ so don't need +1
-                    for (int i = 0; i < length - howManyAlreadRead; i++)
-                    {
-                        array[howManyAlreadRead + i] = Array[i];
-                        arrayIndex++;
-                    }
-                }
-            }
-            else if (EState == State.WriteEqualRead) //write index back to read index
-            {
-                var remainLength = Size - ReadPosition;
-                if (remainLength >= length)
-                {
-                    for (int i = 0; i < length; i++)
-                    {
-                        array[i] = Array[ReadPosition + i];
-                    }
-                }
-                else
-                {
-                    int arrayIndex = 0;
-                    for (int i = ReadPosition; i < Size; i++)
-                    {
-                        array[arrayIndex] = Array[i];
-                        arrayIndex++;
-                    }
-                    var howManyAlreadRead = arrayIndex; //alreay run arrayIndex++ so don't need +1
-                    for (int i = 0; i < length - howManyAlreadRead; i++)
-                    {
-                        array[howManyAlreadRead + i] = Array[i];
-                        arrayIndex++;
-                    }
-                }
-            }
-            else
-            {
-                throw new Exception("read error");
-            }
-            MoveReadPosition(length);
+            Array.Copy(Buffer, ReadPosition, array, 0, length);
+            ReadPosition += length;
             return array;
         }
 
-        /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+        public void Read(T[] destinationArray, int destinationIndex, int length)
+        {
+            AssertThat.IsTrue(ReadPosition + length < Size);
+            AssertThat.IsTrue(destinationIndex + length < destinationArray.Length);
+            Array.Copy(Buffer, ReadPosition, destinationArray, destinationIndex, length);
+            ReadPosition += length;
+        }
+
+        public void Write(T[] sourceArray)
+        {
+            var targetLength = WritePosition + sourceArray.Length;
+            if (Size > targetLength)
+            {
+                Array.Copy(sourceArray, 0, Buffer, WritePosition, sourceArray.Length);
+                WritePosition += sourceArray.Length;
+            }
+            else
+            {
+                var blockCount = sourceArray.Length / BlockSize;
+                blockCount++;
+                var blockSize = blockCount * BlockSize;
+                var newArray = new T[Size + blockSize];
+                Array.Copy(Buffer, ReadPosition, newArray, 0, WritePosition - ReadPosition);
+                Array.Copy(sourceArray, 0, newArray, WritePosition - ReadPosition, sourceArray.Length);
+                WritePosition = WritePosition - ReadPosition + sourceArray.Length;
+                Buffer = newArray;
+            }
+        }
+
+        public void Write(T[] sourceArray, int sourceIndex, int length)
+        {
+            var targetLength = WritePosition + length;
+            if (Size > targetLength)
+            {
+                Array.Copy(sourceArray, sourceIndex, Buffer, WritePosition, length);
+                WritePosition += length;
+            }
+            else
+            {
+                var blockCount = length / BlockSize;
+                blockCount++;
+                var blockSize = blockCount * BlockSize;
+                var newArray = new T[Size + blockSize];
+                Array.Copy(Buffer, ReadPosition, newArray, 0, WritePosition - ReadPosition);
+                Array.Copy(sourceArray, sourceIndex, newArray, WritePosition - ReadPosition, length);
+                WritePosition = WritePosition - ReadPosition + length;
+                Buffer = newArray;
+            }
+        }
+
+        public void ResetIndex()
+        {
+            switch (State)
+            {
+                case EState.ReadWriteAreEqual:
+                    ReadPosition = WritePosition = 0;
+                    break;
+                case EState.WriteAhead:
+                    var length = WritePosition - ReadPosition;
+                    for (int i = 0; i < length; i++)
+                    {
+                        Buffer[i] = Buffer[ReadPosition + i];
+                    }
+                    ReadPosition = 0;
+                    WritePosition = length;
+                    break;
+                case EState.ReadAhead:
+                    AssertThat.Fail("Read and write position error");
+                    break;
+            }
+        }
+
         public void Dispose()
         {
-            Array = null;
+            Buffer = null;
+        }
+
+        enum EState
+        {
+            ReadAhead,
+            WriteAhead,
+            ReadWriteAreEqual
         }
     }
 }

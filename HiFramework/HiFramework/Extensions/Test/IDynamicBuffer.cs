@@ -1,14 +1,11 @@
-﻿/****************************************************************************
- * Description:
- *
- * Author: hiramtan@live.com
- ****************************************************************************/
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-using System;
-
-namespace HiFramework
+namespace HiFramework.Extensions.Test
 {
-    public interface ICircleBuffer<T> : IDisposable
+    interface IDynamicBuffer<T> : IDisposable
     {
         T[] Buffer { get; }
         int Size { get; }
@@ -16,6 +13,9 @@ namespace HiFramework
 
         int ReadPosition { get; }
         int WritePosition { get; }
+
+        int HowManyCanRead { get; }
+        int HowManyCanWrite { get; }
 
         void MoveReadPostion(int length);
         void MoveWritePosition(int length);
@@ -27,7 +27,5 @@ namespace HiFramework
 
         void Write(T[] sourceArray);
         void Write(T[] sourceArray, int sourceIndex, int length);
-
-        void ResetIndex();
     }
 }
