@@ -1,162 +1,90 @@
-﻿/****************************************************************************
- * Description:
- *
- * Author: hiramtan@live.com
- ****************************************************************************/
-
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using HiFramework.Assert;
-using System;
 
 namespace HiFramework
 {
-    public class CirleBuffer<T> : ICircleBuffer<T>
+    public class CircleBuffer<T> : ICircleBuffer<T>
     {
         public T[] Buffer { get; private set; }
-        public int Size
-        {
-            get { return Buffer.Length; }
-        }
-        public int BlockSize
-        {
-            get { return _blockSize; }
-            set { _blockSize = value; }
-        }
+        public int Capacity { get; }
         public int ReadPosition { get; private set; }
         public int WritePosition { get; private set; }
-        private int _blockSize = 1 << 10;
 
-        private EState State
+        public CircleBuffer(int capacity = 1 << 10)
         {
-            get
-            {
-                if (ReadPosition > WritePosition)
-                    return EState.ReadAhead;
-                if (ReadPosition < WritePosition)
-                    return EState.WriteAhead;
-                return EState.ReadWriteAreEqual;
-            }
-        }
-
-        public CirleBuffer(int size = 1 << 10)
-        {
-            Buffer = new T[size];
+            Capacity = capacity;
+            Buffer = new T[capacity];
         }
 
         public void MoveReadPostion(int length)
         {
-            AssertThat.IsTrue(ReadPosition + length < Size);
             ReadPosition += length;
+            var numb = ReadPosition / Capacity;
+            ReadPosition -= numb * Capacity;
         }
 
         public void MoveWritePosition(int length)
         {
-            AssertThat.IsTrue(WritePosition + length < Size);
             WritePosition += length;
+            var numb = WritePosition / Capacity;
+            WritePosition -= numb * Capacity;
         }
 
         public void MoveReadPositionTo(int index)
         {
-            AssertThat.IsTrue(index < Size);
+            AssertThat.IsTrue(index < Capacity);
             ReadPosition = index;
         }
 
         public void MoveWritePostionTo(int index)
         {
-            AssertThat.IsTrue(index < Size);
+            AssertThat.IsTrue(index < Capacity);
             WritePosition = index;
         }
 
         public T[] Read(int length)
         {
-            AssertThat.IsTrue(ReadPosition + length < Size);
-            T[] array = new T[length];
-            Array.Copy(Buffer, ReadPosition, array, 0, length);
-            ReadPosition += length;
-            return array;
+            T[] buffer = new T[length];
+            for (int i = 0; i < length; i++)
+            {
+                buffer[i] = Buffer[ReadPosition];
+                MoveReadPostion(1);
+            }
+            return buffer;
         }
 
         public void Read(T[] destinationArray, int destinationIndex, int length)
         {
-            AssertThat.IsTrue(ReadPosition + length < Size);
-            AssertThat.IsTrue(destinationIndex + length < destinationArray.Length);
-            Array.Copy(Buffer, ReadPosition, destinationArray, destinationIndex, length);
-            ReadPosition += length;
+            for (int i = destinationIndex; i < length; i++)
+            {
+                destinationArray[i] = Buffer[ReadPosition];
+                MoveReadPostion(1);
+            }
         }
 
         public void Write(T[] sourceArray)
         {
-            var targetLength = WritePosition + sourceArray.Length;
-            if (Size > targetLength)
+            for (int i = 0; i < sourceArray.Length; i++)
             {
-                Array.Copy(sourceArray, 0, Buffer, WritePosition, sourceArray.Length);
-                WritePosition += sourceArray.Length;
-            }
-            else
-            {
-                var blockCount = sourceArray.Length / BlockSize;
-                blockCount++;
-                var blockSize = blockCount * BlockSize;
-                var newArray = new T[Size + blockSize];
-                Array.Copy(Buffer, ReadPosition, newArray, 0, WritePosition - ReadPosition);
-                Array.Copy(sourceArray, 0, newArray, WritePosition - ReadPosition, sourceArray.Length);
-                WritePosition = WritePosition - ReadPosition + sourceArray.Length;
-                Buffer = newArray;
+                Buffer[WritePosition] = sourceArray[i];
+                MoveWritePosition(1);
             }
         }
 
         public void Write(T[] sourceArray, int sourceIndex, int length)
         {
-            var targetLength = WritePosition + length;
-            if (Size > targetLength)
+            for (int i = sourceIndex; i < length; i++)
             {
-                Array.Copy(sourceArray, sourceIndex, Buffer, WritePosition, length);
-                WritePosition += length;
-            }
-            else
-            {
-                var blockCount = length / BlockSize;
-                blockCount++;
-                var blockSize = blockCount * BlockSize;
-                var newArray = new T[Size + blockSize];
-                Array.Copy(Buffer, ReadPosition, newArray, 0, WritePosition - ReadPosition);
-                Array.Copy(sourceArray, sourceIndex, newArray, WritePosition - ReadPosition, length);
-                WritePosition = WritePosition - ReadPosition + length;
-                Buffer = newArray;
+                Buffer[WritePosition] = sourceArray[i];
+                MoveWritePosition(1);
             }
         }
-
-        public void ResetIndex()
-        {
-            switch (State)
-            {
-                case EState.ReadWriteAreEqual:
-                    ReadPosition = WritePosition = 0;
-                    break;
-                case EState.WriteAhead:
-                    var length = WritePosition - ReadPosition;
-                    for (int i = 0; i < length; i++)
-                    {
-                        Buffer[i] = Buffer[ReadPosition + i];
-                    }
-                    ReadPosition = 0;
-                    WritePosition = length;
-                    break;
-                case EState.ReadAhead:
-                    AssertThat.Fail("Read and write position error");
-                    break;
-            }
-        }
-
         public void Dispose()
         {
             Buffer = null;
-        }
-
-        enum EState
-        {
-            ReadAhead,
-            WriteAhead,
-            ReadWriteAreEqual
         }
     }
 }

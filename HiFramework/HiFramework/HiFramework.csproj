@@ -76,8 +76,10 @@
     <Compile Include="Components\Signal\Signal_3.cs" />
     <Compile Include="Components\Signal\Signal_4.cs" />
     <Compile Include="Extensions\Bits.cs" />
+    <Compile Include="Extensions\BlockBuffer\BlockBuffer.cs" />
+    <Compile Include="Extensions\BlockBuffer\IBlockBuffer.cs" />
     <Compile Include="Extensions\CircleBuffer\CircleBuffer.cs" />
-    <Compile Include="Extensions\CircleBuffer\ICircullarBuffer.cs" />
+    <Compile Include="Extensions\CircleBuffer\ICircleBuffer.cs" />
     <Compile Include="Extensions\FastDictionary.cs" />
     <Compile Include="Extensions\HiFloat.cs" />
     <Compile Include="Extensions\ObjectBase.cs" />
