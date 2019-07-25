@@ -1,4 +1,9 @@
-﻿using System;
+﻿/****************************************************************************
+ * Description:Circle buffer is fixed size and reuse
+ *
+ * Author: hiramtan@live.com
+ ****************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
