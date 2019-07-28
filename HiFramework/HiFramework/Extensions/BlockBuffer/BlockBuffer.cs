@@ -42,6 +42,11 @@ namespace HiFramework
             Buffer = new T[size];
         }
 
+        public BlockBuffer(T[] buffer)
+        {
+            Buffer = buffer;
+        }
+
         public void MoveReadPostion(int length)
         {
             AssertThat.IsTrue(ReadPosition + length < Size);
