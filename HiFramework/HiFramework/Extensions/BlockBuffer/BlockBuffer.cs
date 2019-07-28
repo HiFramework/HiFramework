@@ -68,40 +68,22 @@ namespace HiFramework
 
         public T[] Read(int length)
         {
-            AssertThat.IsTrue(ReadPosition + length < Size);
             T[] array = new T[length];
-            Array.Copy(Buffer, ReadPosition, array, 0, length);
-            ReadPosition += length;
+            Read(array, 0, length);
             return array;
         }
 
         public void Read(T[] destinationArray, int destinationIndex, int length)
         {
             AssertThat.IsTrue(ReadPosition + length < Size);
-            AssertThat.IsTrue(destinationIndex + length < destinationArray.Length);
-            Array.Copy(Buffer, ReadPosition, destinationArray, destinationIndex, length);
+            AssertThat.IsTrue(destinationIndex + length <= destinationArray.Length);
+            System.Buffer.BlockCopy(Buffer, ReadPosition, destinationArray, destinationIndex, length);
             ReadPosition += length;
         }
 
         public void Write(T[] sourceArray)
         {
-            var targetLength = WritePosition + sourceArray.Length;
-            if (Size > targetLength)
-            {
-                Array.Copy(sourceArray, 0, Buffer, WritePosition, sourceArray.Length);
-                WritePosition += sourceArray.Length;
-            }
-            else
-            {
-                var blockCount = sourceArray.Length / BlockSize;
-                blockCount++;
-                var blockSize = blockCount * BlockSize;
-                var newArray = new T[Size + blockSize];
-                Array.Copy(Buffer, ReadPosition, newArray, 0, WritePosition - ReadPosition);
-                Array.Copy(sourceArray, 0, newArray, WritePosition - ReadPosition, sourceArray.Length);
-                WritePosition = WritePosition - ReadPosition + sourceArray.Length;
-                Buffer = newArray;
-            }
+            Write(sourceArray, 0, sourceArray.Length);
         }
 
         public void Write(T[] sourceArray, int sourceIndex, int length)
@@ -114,12 +96,13 @@ namespace HiFramework
             }
             else
             {
-                var blockCount = length / BlockSize;
-                blockCount++;
+                var blockCount = sourceArray.Length / BlockSize;
+                int remain = (sourceArray.Length % BlockSize) == 0 ? 0 : 1;
+                blockCount += remain;
                 var blockSize = blockCount * BlockSize;
                 var newArray = new T[Size + blockSize];
-                Array.Copy(Buffer, ReadPosition, newArray, 0, WritePosition - ReadPosition);
-                Array.Copy(sourceArray, sourceIndex, newArray, WritePosition - ReadPosition, length);
+                System.Buffer.BlockCopy(Buffer, ReadPosition, newArray, 0, WritePosition - ReadPosition);
+                System.Buffer.BlockCopy(sourceArray, sourceIndex, newArray, WritePosition - ReadPosition, length);
                 WritePosition = WritePosition - ReadPosition + length;
                 Buffer = newArray;
             }

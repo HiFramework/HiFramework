@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HiFramework.Test
 {
     [TestClass]
-    public class CircleBufferTest
+    public class BlockBufferTest
     {
         [TestMethod]
         public void WriteSmall()
@@ -33,8 +33,8 @@ namespace HiFramework.Test
             var buffer = new BlockBuffer<byte>();
             var buffer2 = new BlockBuffer<int>();
             var bytes = new byte[100];
-            //buffer.Write(bytes);
-            //buffer.Read(50);
+            buffer.Write(bytes);
+            buffer.Read(50);
             Assert.AreEqual(buffer.WritePosition, 100);
             Assert.AreEqual(buffer.ReadPosition, 50);
         }
@@ -42,7 +42,7 @@ namespace HiFramework.Test
         [TestMethod]
         public void Index()
         {
-            var buffer = new BlockBuffer<byte>();
+            var buffer = new BlockBuffer<byte>(100);
             var bytes = new byte[100];
             buffer.Write(bytes);
             buffer.Read(50);
