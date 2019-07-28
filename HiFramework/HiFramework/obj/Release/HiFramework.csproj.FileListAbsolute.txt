@@ -2,6 +2,7 @@ D:\MyGit\github\HiFramework\HiFramework\HiFramework\bin\Release\HiFramework.dll
 D:\MyGit\github\HiFramework\HiFramework\HiFramework\bin\Release\HiFramework.pdb
 D:\MyGit\github\HiFramework\HiFramework\HiFramework\bin\Release\HiFramework.Assert.dll
 D:\MyGit\github\HiFramework\HiFramework\HiFramework\bin\Release\HiFramework.Core.dll
+D:\MyGit\github\HiFramework\HiFramework\HiFramework\obj\Release\HiFramework.csprojAssemblyReference.cache
 D:\MyGit\github\HiFramework\HiFramework\HiFramework\obj\Release\HiFramework.csproj.CoreCompileInputs.cache
 D:\MyGit\github\HiFramework\HiFramework\HiFramework\obj\Release\HiFramework.csproj.CopyComplete
 D:\MyGit\github\HiFramework\HiFramework\HiFramework\obj\Release\HiFramework.dll
