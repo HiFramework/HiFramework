@@ -49,13 +49,13 @@ namespace HiFramework
 
         public void MoveReadPostion(int length)
         {
-            AssertThat.IsTrue(ReadPosition + length < Size);
+            AssertThat.IsTrue(ReadPosition + length <= Size);
             ReadPosition += length;
         }
 
         public void MoveWritePosition(int length)
         {
-            AssertThat.IsTrue(WritePosition + length < Size);
+            AssertThat.IsTrue(WritePosition + length <= Size);
             WritePosition += length;
         }
 
@@ -80,7 +80,7 @@ namespace HiFramework
 
         public void Read(T[] destinationArray, int destinationIndex, int length)
         {
-            AssertThat.IsTrue(ReadPosition + length < Size);
+            AssertThat.IsTrue(ReadPosition + length <= Size);
             AssertThat.IsTrue(destinationIndex + length <= destinationArray.Length);
             System.Buffer.BlockCopy(Buffer, ReadPosition, destinationArray, destinationIndex, length);
             ReadPosition += length;
@@ -94,17 +94,26 @@ namespace HiFramework
         public void Write(T[] sourceArray, int sourceIndex, int length)
         {
             var targetLength = WritePosition + length;
-            if (Size > targetLength)
+            if (Size >= targetLength)
             {
-                Array.Copy(sourceArray, sourceIndex, Buffer, WritePosition, length);
+                System.Buffer.BlockCopy(sourceArray, sourceIndex, Buffer, WritePosition, length);
                 WritePosition += length;
             }
             else
             {
-                var blockCount = sourceArray.Length / BlockSize;
-                int remain = (sourceArray.Length % BlockSize) == 0 ? 0 : 1;
-                blockCount += remain;
-                var blockSize = blockCount * BlockSize;
+                var needCount = sourceArray.Length / BlockSize;
+                var remainNeedCount = sourceArray.Length % BlockSize;
+                var allReadyWriteInCount = WritePosition + 1;
+                var remainCanWriteCount = Size - allReadyWriteInCount;
+                if (remainCanWriteCount >= remainNeedCount)
+                {
+                    //Can write in 
+                }
+                else
+                {
+                    needCount += 1;
+                }
+                var blockSize = needCount * BlockSize;
                 var newArray = new T[Size + blockSize];
                 System.Buffer.BlockCopy(Buffer, ReadPosition, newArray, 0, WritePosition - ReadPosition);
                 System.Buffer.BlockCopy(sourceArray, sourceIndex, newArray, WritePosition - ReadPosition, length);
