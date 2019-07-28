@@ -45,6 +45,7 @@ namespace HiFramework
         public BlockBuffer(T[] buffer)
         {
             Buffer = buffer;
+            MoveWritePosition(buffer.Length);
         }
 
         public void MoveReadPostion(int length)
@@ -61,13 +62,13 @@ namespace HiFramework
 
         public void MoveReadPositionTo(int index)
         {
-            AssertThat.IsTrue(index < Size);
+            AssertThat.IsTrue(index <= Size);
             ReadPosition = index;
         }
 
         public void MoveWritePostionTo(int index)
         {
-            AssertThat.IsTrue(index < Size);
+            AssertThat.IsTrue(index <= Size);
             WritePosition = index;
         }
 
