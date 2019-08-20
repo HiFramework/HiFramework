@@ -12,14 +12,14 @@ using HiFramework.Core;
 
 namespace HiFramework
 {
-    class SignalComponent : ComponentBase, ISignalComponent
+    class SignalComponent : ComponentBase, ISignal
     {
         Dictionary<Type, object> signals = new Dictionary<Type, object>();
         public override void OnCreated()
         {
         }
 
-        public override void Dispose()
+        public override void OnDestroy()
         {
         }
 

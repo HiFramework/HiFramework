@@ -32,11 +32,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HiFramework.Assert, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HiFramework.Assert.1.0.2\lib\net35\HiFramework.Assert.dll</HintPath>
+    <Reference Include="HiFramework.Assert, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HiFramework.Assert.1.0.3\lib\net35\HiFramework.Assert.dll</HintPath>
     </Reference>
-    <Reference Include="HiFramework.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HiFramework.Core.1.0.0\lib\net35\HiFramework.Core.dll</HintPath>
+    <Reference Include="HiFramework.Core, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HiFramework.Core.1.0.4\lib\net35\HiFramework.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -56,7 +56,7 @@
     <Compile Include="Components\Event\Action_3.cs" />
     <Compile Include="Components\Event\Action_4.cs" />
     <Compile Include="Components\Event\EventComponent.cs" />
-    <Compile Include="Components\Event\IEventComponent.cs" />
+    <Compile Include="Components\Event\IEvent.cs" />
     <Compile Include="Components\Inject\IInjectComponent.cs" />
     <Compile Include="Components\Inject\InjectAttribute.cs" />
     <Compile Include="Components\Inject\InjectBindAsName.cs" />
@@ -68,7 +68,7 @@
     <Compile Include="Components\IO\IOComponent.cs" />
     <Compile Include="Components\ObjectManager\IObjectManager.cs" />
     <Compile Include="Components\ObjectManager\ObjectsManager.cs" />
-    <Compile Include="Components\Signal\ISignalComponent.cs" />
+    <Compile Include="Components\Signal\ISignal.cs" />
     <Compile Include="Components\Signal\SignalComponent.cs" />
     <Compile Include="Components\Signal\Signal_0.cs" />
     <Compile Include="Components\Signal\Signal_1.cs" />
@@ -92,6 +92,5 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

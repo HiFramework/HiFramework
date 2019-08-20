@@ -12,11 +12,12 @@ using HiFramework.Core;
 
 namespace HiFramework
 {
-    class EventComponent : ComponentBase, IEventComponent
-    {/// <summary>
-     /// Hold the events user registed
-     /// </summary>
-        private readonly Dictionary<string, List<ActionBase>> container = new Dictionary<string, List<ActionBase>>();
+    public class EventComponent : ComponentBase, IEvent
+    {
+        /// <summary>
+        /// Hold the events user registed
+        /// </summary>
+        private readonly Dictionary<string, List<ActionBase>> _container = new Dictionary<string, List<ActionBase>>();
 
         /// <summary>
         /// Subscribe event with no param
@@ -90,15 +91,15 @@ namespace HiFramework
         /// <param name="handler"></param>
         private void RegistHandler(string key, ActionBase handler)
         {
-            if (container.ContainsKey(key))
+            if (_container.ContainsKey(key))
             {
-                container[key].Add(handler);
+                _container[key].Add(handler);
             }
             else
             {
                 var list = new List<ActionBase>();
                 list.Add(handler);
-                container.Add(key, list);
+                _container.Add(key, list);
             }
         }
 
@@ -109,11 +110,14 @@ namespace HiFramework
         /// <param name="obj"></param>
         public void Dispatch(string key, params object[] obj)
         {
-            AssertThat.IsNotNull(container.ContainsKey(key));
-            var infos = container[key];
-            foreach (var variable in infos)
+            List<ActionBase> v = null;
+            var isTrue = _container.TryGetValue(key, out v);
+            if (isTrue)
             {
-                variable.Dispatch(obj);
+                foreach (var info in v)
+                {
+                    info.Dispatch(obj);
+                }
             }
         }
 
@@ -123,9 +127,9 @@ namespace HiFramework
         /// <param name="key"></param>
         public void RemoveListener(string key)
         {
-            AssertThat.IsTrue(container.ContainsKey(key));
-            container[key].Clear();
-            container.Remove(key);
+            AssertThat.IsTrue(_container.ContainsKey(key));
+            _container[key].Clear();
+            _container.Remove(key);
         }
 
         public override void OnCreated()
@@ -136,13 +140,13 @@ namespace HiFramework
         /// <summary>
         /// This will fired on component destoryed
         /// </summary>
-        public override void Dispose()
+        public override void OnDestroy()
         {
-            foreach (var variable in container)
+            foreach (var variable in _container)
             {
                 variable.Value.Clear();
             }
-            container.Clear();
+            _container.Clear();
         }
     }
 }

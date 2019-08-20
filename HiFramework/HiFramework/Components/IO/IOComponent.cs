@@ -133,7 +133,7 @@ namespace HiFramework
         {
         }
 
-        public override void Dispose()
+        public override void OnDestroy()
         {
         }
     }
