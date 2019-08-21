@@ -4,10 +4,11 @@ using System.Diagnostics;
 namespace HiFramework
 {
     public static class Assert
-    {  /// <summary>
-       /// Make sure args is true
-       /// </summary>
-       /// <param name="args"></param>
+    {
+        /// <summary>
+        /// Make sure args is true
+        /// </summary>
+        /// <param name="args"></param>
         [Conditional("DEBUG")]
         public static void IsTrue(bool args)
         {

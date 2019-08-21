@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\HiFramework\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,7 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\HiFramework\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -41,6 +41,9 @@
   <ItemGroup>
     <Compile Include="Binder.cs" />
     <Compile Include="Common\Assert.cs" />
+    <Compile Include="Common\ConsoleLogger.cs" />
+    <Compile Include="Common\ILogHandler.cs" />
+    <Compile Include="Common\Log.cs" />
     <Compile Include="Components\Event\ActionBase.cs" />
     <Compile Include="Components\Event\Action_0.cs" />
     <Compile Include="Components\Event\Action_1.cs" />
