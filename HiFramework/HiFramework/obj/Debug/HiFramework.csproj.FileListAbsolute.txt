@@ -1,8 +1,0 @@
-D:\MyGit\github\HiFramework\HiFramework\HiFramework\obj\Debug\HiFramework.csproj.CoreCompileInputs.cache
-D:\MyGit\github\HiFramework\HiFramework\HiFramework\bin\Debug\HiFramework.dll
-D:\MyGit\github\HiFramework\HiFramework\HiFramework\bin\Debug\HiFramework.pdb
-D:\MyGit\github\HiFramework\HiFramework\HiFramework\bin\Debug\HiFramework.Assert.dll
-D:\MyGit\github\HiFramework\HiFramework\HiFramework\bin\Debug\HiFramework.Core.dll
-D:\MyGit\github\HiFramework\HiFramework\HiFramework\obj\Debug\HiFramework.csproj.CopyComplete
-D:\MyGit\github\HiFramework\HiFramework\HiFramework\obj\Debug\HiFramework.dll
-D:\MyGit\github\HiFramework\HiFramework\HiFramework\obj\Debug\HiFramework.pdb
