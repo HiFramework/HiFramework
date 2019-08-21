@@ -8,7 +8,7 @@
 
 namespace HiFramework
 {
-    public interface IIOComponent
+    public interface IIO
     {
         #region folder
 

@@ -4,13 +4,13 @@
  * Document: https://github.com/hiramtan/HiFramework
  * Author: hiramtan@live.com
  ****************************************************************************/
- using System;
+using System;
 using System.Collections.Generic;
 
 
 namespace HiFramework
 {
-    class ObjectsManager : ComponentBase, IObjectManager
+    internal class ObjectsManager : ComponentBase, IObjectManager
     {
         private readonly Dictionary<string, object> _objs = new Dictionary<string, object>();
         public override void OnCreated()

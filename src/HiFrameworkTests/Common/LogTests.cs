@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HiFramework.Log;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
 
-namespace HiFramework.Log.Tests
+namespace HiFramework.Tests
 {
     [TestClass()]
     public class LogTests
@@ -37,7 +36,7 @@ namespace HiFramework.Log.Tests
             Assert.AreEqual(info, "[info]");
         }
 
-        public class Logger : ILogHandler
+        class Logger : ILogHandler
         {
             public void Info(params object[] args)
             {

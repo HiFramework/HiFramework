@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using HiFramework.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HiFramework.Tests

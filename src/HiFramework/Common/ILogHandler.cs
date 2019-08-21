@@ -4,7 +4,7 @@
 // * Author: hiramtan@live.com
 // ****************************************************************************/
 
-namespace HiFramework.Log
+namespace HiFramework
 {
     public interface ILogHandler
     {

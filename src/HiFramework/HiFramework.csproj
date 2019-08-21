@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Binder.cs" />
+    <Compile Include="HiFrameworkBinder.cs" />
     <Compile Include="Common\Assert.cs" />
     <Compile Include="Common\ConsoleLogger.cs" />
     <Compile Include="Common\ILogHandler.cs" />
@@ -59,7 +59,7 @@
     <Compile Include="Components\Inject\InjectBindInfoContainer.cs" />
     <Compile Include="Components\Inject\InjectBinding.cs" />
     <Compile Include="Components\Inject\InjectComponent.cs" />
-    <Compile Include="Components\IO\IIOComponent.cs" />
+    <Compile Include="Components\IO\IIO.cs" />
     <Compile Include="Components\IO\IOComponent.cs" />
     <Compile Include="Components\ObjectManager\IObjectManager.cs" />
     <Compile Include="Components\ObjectManager\ObjectsManager.cs" />

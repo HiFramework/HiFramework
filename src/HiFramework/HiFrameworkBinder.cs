@@ -12,7 +12,7 @@ namespace HiFramework
         {
             Bind<ISignal>().To<SignalComponent>();
             Bind<IEvent>().To<EventComponent>();
-            Bind<IIOComponent>().To<IOComponent>();
+            Bind<IIO>().To<IOComponent>();
             Bind<IInjectComponent>().To<InjectComponent>();
             Bind<IObjectManager>().To<ObjectsManager>();
         }

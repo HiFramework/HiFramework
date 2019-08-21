@@ -11,7 +11,7 @@ using System.IO;
 
 namespace HiFramework
 {
-    class IOComponent : ComponentBase, IIOComponent
+    internal class IOComponent : ComponentBase, IIO
     {
         public bool IsFolderExist(string path)
         {

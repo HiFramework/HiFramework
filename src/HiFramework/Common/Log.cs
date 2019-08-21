@@ -3,9 +3,10 @@
 // *
 // * Author: hiramtan@live.com
 // ****************************************************************************/
+
 using System;
 
-namespace HiFramework.Log
+namespace HiFramework
 {
     public static class Log
     {

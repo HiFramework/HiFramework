@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace HiFramework
 {
-    class SignalComponent : ComponentBase, ISignal
+    internal class SignalComponent : ComponentBase, ISignal
     {
         Dictionary<Type, object> signals = new Dictionary<Type, object>();
         public override void OnCreated()

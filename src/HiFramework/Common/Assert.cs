@@ -1,4 +1,11 @@
-﻿using System;
+﻿/****************************************************************************
+ * Description: 
+ * 
+ * Document: https://github.com/hiramtan/HiFramework
+ * Author: hiramtan@live.com
+ ****************************************************************************/
+ 
+ using System;
 using System.Diagnostics;
 
 namespace HiFramework

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace HiFramework
 {
-    public class EventComponent : ComponentBase, IEvent
+    internal class EventComponent : ComponentBase, IEvent
     {
         /// <summary>
         /// Hold the events user registed
@@ -120,7 +120,7 @@ namespace HiFramework
             }
             else
             {
-               
+
             }
         }
 
