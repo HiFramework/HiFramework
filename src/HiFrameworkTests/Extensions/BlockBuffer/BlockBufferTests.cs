@@ -1,10 +1,15 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using HiFramework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace HiFramework.Test
+namespace HiFramework.Tests
 {
-    [TestClass]
-    public class BlockBufferTest
+    [TestClass()]
+    public class BlockBufferTests
     {
         [TestMethod]
         public void WriteSmall()
