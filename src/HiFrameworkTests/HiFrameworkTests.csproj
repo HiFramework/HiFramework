@@ -65,6 +65,7 @@
     <Compile Include="Common\LogTests.cs" />
     <Compile Include="Components\Event\EventComponentTests.cs" />
     <Compile Include="Core\CenterTests.cs" />
+    <Compile Include="Extensions\BlockBuffer\BlockBufferTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
