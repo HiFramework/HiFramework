@@ -4,6 +4,7 @@
  * Document: https://github.com/hiramtan/HiFramework
  * Author: hiramtan@live.com
  ****************************************************************************/
+
 using System;
 
 namespace HiFramework
@@ -16,6 +17,11 @@ namespace HiFramework
         public void AddListener(Action action)
         {
             _action += action;
+        }
+
+        public void RemoveListener(Action action)
+        {
+            _action -= action;
         }
 
         public void Fire()
