@@ -86,18 +86,28 @@ namespace HiFramework.Tests
         [TestMethod()]
         public void DispatchTest()
         {
+            bool isTrue1 = false;
+            bool isTrue2 = false;
             var e = Center.Get<IEvent>();
-            e.Dispatch("");
+            e.Subscribe("key", () => { isTrue1 = true; });
+            e.Subscribe("key", () => { isTrue2 = true; });
+            e.Dispatch("key");
+            Assert.IsTrue(isTrue1);
+            Assert.IsTrue(isTrue2);
         }
 
         [TestMethod()]
         public void RemoveListenerTest()
         {
+            var e = Center.Get<IEvent>();
+            e.Subscribe("key", () => { });
+            e.RemoveListener("key");
         }
 
         [TestMethod()]
         public void OnCreatedTest()
         {
+
         }
 
         [TestCleanup]

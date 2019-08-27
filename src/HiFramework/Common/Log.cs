@@ -14,10 +14,12 @@ namespace HiFramework
         /// If info is on
         /// </summary>
         public static bool IsInfoOn = true;
+
         /// <summary>
         /// If warning is on
         /// </summary>
         public static bool IsWarningOn = true;
+
         /// <summary>
         /// If error is on
         /// </summary>
@@ -27,10 +29,12 @@ namespace HiFramework
         /// When info print
         /// </summary>
         public static event Action<ILogHandler, object[]> OnInfo;
+
         /// <summary>
         /// When warning print
         /// </summary>
         public static event Action<ILogHandler, object[]> OnWarning;
+
         /// <summary>
         /// When error print
         /// </summary>

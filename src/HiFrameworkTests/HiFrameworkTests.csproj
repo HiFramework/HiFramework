@@ -64,6 +64,7 @@
     <Compile Include="Common\AssertTests.cs" />
     <Compile Include="Common\LogTests.cs" />
     <Compile Include="Components\Event\EventComponentTests.cs" />
+    <Compile Include="Components\Signal\SignalComponentTests.cs" />
     <Compile Include="Core\CenterTests.cs" />
     <Compile Include="Extensions\BlockBuffer\BlockBufferTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

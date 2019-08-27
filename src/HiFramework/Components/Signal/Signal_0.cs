@@ -8,7 +8,7 @@ using System;
 
 namespace HiFramework
 {
-    public class Signal_0
+    public class Signal
     {
 
         private Action _action;

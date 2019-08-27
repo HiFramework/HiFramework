@@ -8,23 +8,17 @@ namespace HiFramework
 {
     public interface ISignal
     {
+        /// <summary>
+        /// Get signal
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         T GetSignal<T>() where T : class;
+
+        /// <summary>
+        /// Remove Signal
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         void RemoveSignal<T>() where T : class;
     }
 }
-
-
-//public class AddGold : Signal<int>
-//{
-
-//}
-
-//void Test()
-//{
-//    var signalComponent = Center.Get<ISignal>();
-//    var signal = signalComponent.GetSignal<AddGold>();
-//    signal.AddListener((int gold) => { });
-
-//    signal = signalComponent.GetSignal<AddGold>();
-//    signal.Fire(100);
-//}

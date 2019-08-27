@@ -111,16 +111,10 @@ namespace HiFramework
         {
             List<ActionBase> v = null;
             var isTrue = _container.TryGetValue(key, out v);
-            if (isTrue)
+            AssertThat.IsTrue(isTrue, "Do not have this key");
+            foreach (var info in v)
             {
-                foreach (var info in v)
-                {
-                    info.Dispatch(obj);
-                }
-            }
-            else
-            {
-
+                info.Dispatch(obj);
             }
         }
 
@@ -130,7 +124,7 @@ namespace HiFramework
         /// <param name="key"></param>
         public void RemoveListener(string key)
         {
-            AssertThat.IsTrue(_container.ContainsKey(key));
+            AssertThat.IsTrue(_container.ContainsKey(key), "Do not have this key");
             _container[key].Clear();
             _container.Remove(key);
         }
