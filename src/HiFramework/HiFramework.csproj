@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ScheduleTask.cs" />
     <Compile Include="HiFrameworkBinder.cs" />
     <Compile Include="Common\Assert.cs" />
     <Compile Include="Common\ConsoleLogger.cs" />
