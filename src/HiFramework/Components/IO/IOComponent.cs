@@ -20,14 +20,14 @@ namespace HiFramework
 
         public void CreateFolder(string path)
         {
-            Assert.IsFalse(IsFileExist(path));
+            AssertThat.IsFalse(IsFileExist(path));
             Directory.CreateDirectory(path);
         }
 
         public void CopyFolder(string sourcePath, string destinationPath)
         {
-            Assert.IsTrue(IsFileExist(sourcePath));
-            Assert.IsFalse(IsFileExist(destinationPath));
+            AssertThat.IsTrue(IsFileExist(sourcePath));
+            AssertThat.IsFalse(IsFileExist(destinationPath));
             CreateFolder(destinationPath);
             var tempFiles = Directory.GetFiles(sourcePath);
             foreach (var variable in tempFiles)
@@ -47,7 +47,7 @@ namespace HiFramework
 
         public void DeleteFolder(string path)
         {
-            Assert.IsTrue(IsFolderExist(path));
+            AssertThat.IsTrue(IsFolderExist(path));
             Directory.Delete(path, true); //第二个参数：删除子目录
         }
 
@@ -58,7 +58,7 @@ namespace HiFramework
 
         public byte[] ReadFile(string path)
         {
-            Assert.IsTrue(IsFileExist(path));
+            AssertThat.IsTrue(IsFileExist(path));
             using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 var bytes = new byte[fs.Length];
@@ -70,7 +70,7 @@ namespace HiFramework
 
         public void ReadFileAsync(Action<byte[]> action, string path)
         {
-            Assert.IsTrue(IsFileExist(path));
+            AssertThat.IsTrue(IsFileExist(path));
             using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 var bytes = new byte[fs.Length];
@@ -115,8 +115,8 @@ namespace HiFramework
 
         public void CopyFile(string sourcePath, string destPath)
         {
-            Assert.IsTrue(IsFileExist(sourcePath));
-            Assert.IsFalse(IsFileExist(destPath));
+            AssertThat.IsTrue(IsFileExist(sourcePath));
+            AssertThat.IsFalse(IsFileExist(destPath));
             var directory = Path.GetDirectoryName(destPath);
             CreateFolder(directory);
             File.Copy(sourcePath, destPath, true);
@@ -124,7 +124,7 @@ namespace HiFramework
 
         public void DeleteFile(string path)
         {
-            Assert.IsTrue(IsFileExist(path));
+            AssertThat.IsTrue(IsFileExist(path));
             File.Delete(path);
         }
 

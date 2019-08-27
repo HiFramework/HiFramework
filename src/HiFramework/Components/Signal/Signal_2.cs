@@ -19,7 +19,7 @@ namespace HiFramework
 
         public void Fire(T1 t1, T2 t2)
         {
-            Assert.IsNotNull(_action, "Action is null, add listener first");
+            AssertThat.IsNotNull(_action, "Action is null, add listener first");
             _action(t1, t2);
         }
     }

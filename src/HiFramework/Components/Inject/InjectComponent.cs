@@ -80,7 +80,7 @@ namespace HiFramework
                     break; //There have field with Attribute but not InjectAttribute
                 }
                 var bindInfo = _bindInfoContainer.GetBindInfo(fields[i].FieldType, injectAttribute.AsName);
-                Assert.IsNotNull(bindInfo, "Bind to object is null");
+                AssertThat.IsNotNull(bindInfo, "Bind to object is null");
                 fields[i].SetValue(obj, bindInfo.Obj);
             }
         }
@@ -112,7 +112,7 @@ namespace HiFramework
                     break; //There have property with Attribute but not InjectAttribute
                 }
                 var bindInfo = _bindInfoContainer.GetBindInfo(propertys[i].PropertyType, injectAttribute.AsName);
-                Assert.IsNotNull(bindInfo, "Bind to object is null");
+                AssertThat.IsNotNull(bindInfo, "Bind to object is null");
                 propertys[i].SetValue(obj, bindInfo.Obj, null);
             }
         }

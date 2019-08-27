@@ -41,7 +41,7 @@ namespace HiFramework
         /// <param name="component"></param>
         internal void SetKeyAndComponent(Type key, Type component)
         {
-            Assert.IsFalse(BindInfos.ContainsKey(key), "Already have this key" + key.ToString());
+            AssertThat.IsFalse(BindInfos.ContainsKey(key), "Already have this key" + key.ToString());
             BindInfos[key] = component;
         }
     }

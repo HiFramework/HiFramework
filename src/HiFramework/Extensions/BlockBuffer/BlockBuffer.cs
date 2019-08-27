@@ -49,25 +49,25 @@ namespace HiFramework
 
         public void MoveReadPostion(int length)
         {
-            Assert.IsTrue(ReadPosition + length <= Size);
+            AssertThat.IsTrue(ReadPosition + length <= Size);
             ReadPosition += length;
         }
 
         public void MoveWritePosition(int length)
         {
-            Assert.IsTrue(WritePosition + length <= Size);
+            AssertThat.IsTrue(WritePosition + length <= Size);
             WritePosition += length;
         }
 
         public void MoveReadPositionTo(int index)
         {
-            Assert.IsTrue(index <= Size);
+            AssertThat.IsTrue(index <= Size);
             ReadPosition = index;
         }
 
         public void MoveWritePostionTo(int index)
         {
-            Assert.IsTrue(index <= Size);
+            AssertThat.IsTrue(index <= Size);
             WritePosition = index;
         }
 
@@ -80,8 +80,8 @@ namespace HiFramework
 
         public void Read(T[] destinationArray, int destinationIndex, int length)
         {
-            Assert.IsTrue(ReadPosition + length <= Size);
-            Assert.IsTrue(destinationIndex + length <= destinationArray.Length);
+            AssertThat.IsTrue(ReadPosition + length <= Size);
+            AssertThat.IsTrue(destinationIndex + length <= destinationArray.Length);
             System.Buffer.BlockCopy(Buffer, ReadPosition, destinationArray, destinationIndex, length);
             ReadPosition += length;
         }
@@ -139,7 +139,7 @@ namespace HiFramework
                     WritePosition = length;
                     break;
                 case EState.ReadAhead:
-                    Assert.Fail("Read and write position error");
+                    AssertThat.Fail("Read and write position error");
                     break;
             }
         }

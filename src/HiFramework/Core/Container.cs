@@ -74,7 +74,7 @@ namespace HiFramework
             }
             else
             {
-                Assert.Fail("ComponentBase is not exist" + key.FullName.ToString());
+                AssertThat.Fail("ComponentBase is not exist" + key.FullName.ToString());
             }
         }
 
@@ -85,7 +85,7 @@ namespace HiFramework
         {
             foreach (var component in _components)
             {
-                Assert.IsNotNull(component.Value, "Component is null" + component.Key.FullName);
+                AssertThat.IsNotNull(component.Value, "Component is null" + component.Key.FullName);
                 component.Value.OnDestroy();
             }
         }
@@ -98,10 +98,10 @@ namespace HiFramework
         private ComponentBase CreateComponent<T>(Type key)
         {
             var componentType = _binder.BindInfos[key];
-            Assert.IsNotNull(componentType, "Have not bind this type");
+            AssertThat.IsNotNull(componentType, "Have not bind this type");
             var c = Activator.CreateInstance(componentType) as ComponentBase;
-            Assert.IsNotNull(c, "Create component faild");
-            Assert.IsFalse(_components.ContainsKey(key), "Already have this component");
+            AssertThat.IsNotNull(c, "Create component faild");
+            AssertThat.IsFalse(_components.ContainsKey(key), "Already have this component");
             _components[key] = c;
             c.OnCreated();
             return c;

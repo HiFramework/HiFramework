@@ -24,13 +24,13 @@ namespace HiFramework
 
         public void AddObject(string name, object obj)
         {
-            Assert.IsFalse(_objs.ContainsKey(name), "Alread have this key");
+            AssertThat.IsFalse(_objs.ContainsKey(name), "Alread have this key");
             _objs[name] = obj;
         }
 
         public object GetObject(string name)
         {
-            Assert.IsTrue(_objs.ContainsKey(name), "Do not have this key");
+            AssertThat.IsTrue(_objs.ContainsKey(name), "Do not have this key");
             return _objs[name];
         }
     }

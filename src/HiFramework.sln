@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiFramework", "HiFramework\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiFrameworkTests", "HiFrameworkTests\HiFrameworkTests.csproj", "{C84241B1-16DA-45DB-87AF-F1894A21D48E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiFramework.Example", "HiFramework.Example\HiFramework.Example.csproj", "{5334A22D-E6CE-439B-9C4E-9B5D173B6190}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{C84241B1-16DA-45DB-87AF-F1894A21D48E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C84241B1-16DA-45DB-87AF-F1894A21D48E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C84241B1-16DA-45DB-87AF-F1894A21D48E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5334A22D-E6CE-439B-9C4E-9B5D173B6190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5334A22D-E6CE-439B-9C4E-9B5D173B6190}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5334A22D-E6CE-439B-9C4E-9B5D173B6190}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5334A22D-E6CE-439B-9C4E-9B5D173B6190}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

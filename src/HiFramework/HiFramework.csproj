@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="Extensions\ScheduleTask.cs" />
     <Compile Include="HiFrameworkBinder.cs" />
-    <Compile Include="Common\Assert.cs" />
+    <Compile Include="Common\AssertThat.cs" />
     <Compile Include="Common\ConsoleLogger.cs" />
     <Compile Include="Common\ILogHandler.cs" />
     <Compile Include="Common\Log.cs" />

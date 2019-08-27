@@ -18,13 +18,13 @@ namespace HiFramework.Tests
             bool isTrue = false;
             try
             {
-                HiFramework.Assert.IsTrue(isTrue);
+                AssertThat.IsTrue(false);
             }
             catch (Exception e)
             {
                 isTrue = true;
             }
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(isTrue);
+            Assert.IsTrue(isTrue);
 #endif
         }
     }

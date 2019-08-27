@@ -39,13 +39,13 @@ namespace HiFramework
 
         public void MoveReadPositionTo(int index)
         {
-            Assert.IsTrue(index < Capacity);
+            AssertThat.IsTrue(index < Capacity);
             ReadPosition = index;
         }
 
         public void MoveWritePostionTo(int index)
         {
-            Assert.IsTrue(index < Capacity);
+            AssertThat.IsTrue(index < Capacity);
             WritePosition = index;
         }
 

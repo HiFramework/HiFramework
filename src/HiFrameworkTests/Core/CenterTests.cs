@@ -31,10 +31,11 @@ namespace HiFramework.Tests
             Center.Dispose();
         }
 
-        public class NewBinder : Binder
+        public class NewBinder : HiFrameworkBinder
         {
             public override void Init()
             {
+                base.Init();
                 Bind<INewComponent>().To<NewNewComponent>();
             }
         }

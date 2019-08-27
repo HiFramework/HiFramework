@@ -130,7 +130,7 @@ namespace HiFramework
         /// <param name="key"></param>
         public void RemoveListener(string key)
         {
-            Assert.IsTrue(_container.ContainsKey(key));
+            AssertThat.IsTrue(_container.ContainsKey(key));
             _container[key].Clear();
             _container.Remove(key);
         }

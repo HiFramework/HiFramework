@@ -38,7 +38,7 @@ namespace HiFramework
 
         public void RecleimThisObjectToPool(T t)
         {
-            Assert.IsFalse(_objects.Contains(t), "Already have this object");
+            AssertThat.IsFalse(_objects.Contains(t), "Already have this object");
             _objects.Add(t);
             t.OnObjectInPool();
         }

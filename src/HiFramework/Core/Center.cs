@@ -5,8 +5,7 @@
  * Author: hiramtan@live.com
  ****************************************************************************/
 
-
-namespace HiFramework
+ namespace HiFramework
 {
     /// <summary>
     /// Most common use for call framework api
@@ -24,7 +23,7 @@ namespace HiFramework
         /// <param name="binder"></param>
         public static void Init(Binder binder)
         {
-            Assert.IsNotNull(binder, "Binder is null");
+            AssertThat.IsNotNull(binder, "Binder is null");
             binder.Init();
             _container = new Container(binder);
         }

@@ -34,14 +34,14 @@ namespace HiFramework
         public void RemoveSignal<T>() where T : class
         {
             var key = typeof(T);
-            Assert.IsTrue(signals.ContainsKey(key), "Do not have this signal");
+            AssertThat.IsTrue(signals.ContainsKey(key), "Do not have this signal");
             signals.Remove(key);
         }
 
         private object CreateSignal(Type key)
         {
             var signal = Activator.CreateInstance(key);
-            Assert.IsNotNull(signal, "Create signal faild");
+            AssertThat.IsNotNull(signal, "Create signal faild");
             signals[key] = signal;
             return signal;
         }
