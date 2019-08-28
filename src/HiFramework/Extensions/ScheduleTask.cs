@@ -6,16 +6,13 @@
  ****************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace HiFramework
 {
     /// <summary>
     /// Will do task every day at xx:xx(14:20)
     /// </summary>
-    public class ScheduleTask
+    public class ScheduleTask : IDisposable
     {
         private string _time;
         private Action _task;
@@ -82,6 +79,14 @@ namespace HiFramework
         {
             _firstTimer.Enabled = false;
             _tickTimer.Enabled = false;
+        }
+
+        public void Dispose()
+        {
+            Stop();
+            _task = null;
+            _firstTimer = null;
+            _tickTimer = null;
         }
     }
 }
