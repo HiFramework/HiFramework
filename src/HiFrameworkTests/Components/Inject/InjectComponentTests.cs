@@ -46,10 +46,10 @@ namespace HiFramework.Tests
         {
             var c = Center.Get<IInject>();
             var test = new TestClass2();
-            c.Bind<TestClass2>().To(test);
+            c.Bind<TestClass2>().To(test).AsName("class");
             c.Bind<int>().To(10).AsName("x");
             c.Bind<int>().To(20).AsName("y");
-            c.Inject(typeof(TestClass2));
+            c.Inject(typeof(TestClass2), "class");
             Assert.AreEqual(test.x, 10);
             Assert.AreEqual(test.GetY(), 20);
 

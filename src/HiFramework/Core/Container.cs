@@ -88,6 +88,7 @@ namespace HiFramework
                 AssertThat.IsNotNull(component.Value, "Component is null" + component.Key);
                 component.Value.OnDestroy();
             }
+            _components.Clear();
         }
 
         /// <summary>
