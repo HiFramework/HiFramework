@@ -37,7 +37,7 @@ namespace HiFramework
         /// <returns></returns>
         public InjectBindInfo GetBindInfo(Type type, string asName)
         {
-            return bindInfos.Find((x) => { return (x.Type == type && x.AsName == asName); });
+            return bindInfos.Find((x) => { return (x.Key == type.FullName && x.AsName == asName); });
         }
     }
 }

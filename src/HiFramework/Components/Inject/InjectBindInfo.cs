@@ -17,7 +17,7 @@ namespace HiFramework
         /// <summary>
         /// 类型
         /// </summary>
-        public Type Type { get; private set; }
+        public string Key { get; private set; }
 
         /// <summary>
         /// 实例
@@ -32,10 +32,10 @@ namespace HiFramework
         /// <summary>
         /// 设置类型
         /// </summary>
-        /// <param name="type"></param>
-        public void SetType(Type type)
+        /// <param name="key"></param>
+        public void SetKey(string key)
         {
-            Type = type;
+            Key = key;
         }
 
         /// <summary>

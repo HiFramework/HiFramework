@@ -4,15 +4,13 @@
  * Document: https://github.com/hiramtan/HiFramework
  * Author: hiramtan@live.com
  ****************************************************************************/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 
+using System;
+using System.Reflection;
 
 namespace HiFramework
 {
-   internal class InjectComponent : ComponentBase, IInject
+    internal class InjectComponent : ComponentBase, IInject
     {
         private InjectBindInfoContainer _bindInfoContainer = new InjectBindInfoContainer();
         public override void OnCreated()
@@ -42,12 +40,23 @@ namespace HiFramework
             _bindInfoContainer.Add(bindInfo);
         }
 
+        public void Inject(Type type, string name = null)
+        {
+            var info = _bindInfoContainer.GetBindInfo(type, name);
+            Inject(info.Obj);
+        }
+
+        public void Inject<T>(string name = null)
+        {
+            Inject(typeof(T), name);
+        }
+
         /// <summary>
         /// Inject a instance
         /// Only property and filed for current now
         /// </summary>
         /// <param name="args"></param>
-        public void Inject(object args)
+        private void Inject(object args)
         {
             InjectField(args);
             InjectProperty(args);
