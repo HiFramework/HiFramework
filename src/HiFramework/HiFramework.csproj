@@ -53,7 +53,7 @@
     <Compile Include="Components\Event\Action_4.cs" />
     <Compile Include="Components\Event\EventComponent.cs" />
     <Compile Include="Components\Event\IEvent.cs" />
-    <Compile Include="Components\Inject\IInjectComponent.cs" />
+    <Compile Include="Components\Inject\IInject.cs" />
     <Compile Include="Components\Inject\InjectAttribute.cs" />
     <Compile Include="Components\Inject\InjectBindAsName.cs" />
     <Compile Include="Components\Inject\InjectBindInfo.cs" />

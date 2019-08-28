@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace HiFramework
 {
-   internal class InjectComponent : ComponentBase, IInjectComponent
+   internal class InjectComponent : ComponentBase, IInject
     {
         private InjectBindInfoContainer _bindInfoContainer = new InjectBindInfoContainer();
         public override void OnCreated()

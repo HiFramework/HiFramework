@@ -23,7 +23,7 @@ namespace HiFramework
         /// <summary>
         /// Instance infos
         /// </summary>
-        private readonly Dictionary<Type, ComponentBase> _components = new Dictionary<Type, ComponentBase>();
+        private readonly Dictionary<string, ComponentBase> _components = new Dictionary<string, ComponentBase>();
 
         public Container(Binder binder)
         {
@@ -37,14 +37,14 @@ namespace HiFramework
         /// <returns></returns>
         internal T Get<T>() where T : class
         {
-            var key = typeof(T);
+            var t = typeof(T);
             ComponentBase componentBase = null;
-            _components.TryGetValue(key, out componentBase);
+            _components.TryGetValue(t.FullName, out componentBase);
             if (componentBase != null)
             {
                 return componentBase as T;
             }
-            return CreateComponent<T>(key) as T;
+            return CreateComponent<T>(t) as T;
         }
 
         /// <summary>
@@ -54,8 +54,8 @@ namespace HiFramework
         /// <returns></returns>
         internal bool IsComponentExist<T>()
         {
-            var key = typeof(T);
-            return _components.ContainsKey(key);
+            var t = typeof(T);
+            return _components.ContainsKey(t.FullName);
         }
 
         /// <summary>
@@ -64,17 +64,17 @@ namespace HiFramework
         /// <typeparam name="T"></typeparam>
         internal void Remove<T>()
         {
-            var key = typeof(T);
+            var t = typeof(T);
             ComponentBase c = null;
-            _components.TryGetValue(key, out c);
+            _components.TryGetValue(t.FullName, out c);
             if (c != null)
             {
-                _components.Remove(key);
+                _components.Remove(t.FullName);
                 c.OnDestroy();
             }
             else
             {
-                AssertThat.Fail("ComponentBase is not exist" + key.FullName.ToString());
+                AssertThat.Fail("ComponentBase is not exist" + t.FullName.ToString());
             }
         }
 
@@ -85,7 +85,7 @@ namespace HiFramework
         {
             foreach (var component in _components)
             {
-                AssertThat.IsNotNull(component.Value, "Component is null" + component.Key.FullName);
+                AssertThat.IsNotNull(component.Value, "Component is null" + component.Key);
                 component.Value.OnDestroy();
             }
         }
@@ -95,14 +95,14 @@ namespace HiFramework
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        private ComponentBase CreateComponent<T>(Type key)
+        private ComponentBase CreateComponent<T>(Type t)
         {
-            var componentType = _binder.BindInfos[key];
+            var componentType = _binder.BindInfos[t];
             AssertThat.IsNotNull(componentType, "Have not bind this type");
             var c = Activator.CreateInstance(componentType) as ComponentBase;
             AssertThat.IsNotNull(c, "Create component faild");
-            AssertThat.IsFalse(_components.ContainsKey(key), "Already have this component");
-            _components[key] = c;
+            AssertThat.IsFalse(_components.ContainsKey(t.FullName), "Already have this component");
+            _components[t.FullName] = c;
             c.OnCreated();
             return c;
         }

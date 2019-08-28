@@ -17,6 +17,7 @@ namespace HiFramework
     /// </summary>
     public class ScheduleTask
     {
+        private string _time;
         private Action _task;
 
         private System.Timers.Timer _firstTimer;
@@ -29,10 +30,14 @@ namespace HiFramework
         /// <param name="task"></param>
         public ScheduleTask(string time, Action task)
         {
+            _time = time;
             _task = task;
+        }
 
+        public void Start()
+        {
             DateTime to = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,
-                int.Parse(time.Split(':')[0]), int.Parse(time.Split(':')[1]), 0);
+                int.Parse(_time.Split(':')[0]), int.Parse(_time.Split(':')[1]), 0);
             var offset = to - DateTime.Now;
             var offsetTime = offset.TotalMilliseconds;
             if (offsetTime > 0) //today
