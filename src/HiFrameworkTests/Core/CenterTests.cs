@@ -20,7 +20,6 @@ namespace HiFramework.Tests
             Center.Get<INewComponent>();
             Center.Get<INewComponent>();//reget
             Assert.IsTrue(Center.IsComponentExist<INewComponent>());
-            Center.Dispose();
             Center.Remove<INewComponent>();
             Assert.IsFalse(Center.IsComponentExist<INewComponent>());
         }
