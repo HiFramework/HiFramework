@@ -139,11 +139,7 @@ namespace HiFramework
         /// </summary>
         public override void OnDestroy()
         {
-            foreach (var variable in _container)
-            {
-                variable.Value.Clear();
-            }
-            _container.Clear();
+           
         }
     }
 }

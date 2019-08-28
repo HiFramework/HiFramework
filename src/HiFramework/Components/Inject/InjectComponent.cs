@@ -19,6 +19,7 @@ namespace HiFramework
 
         public override void OnDestroy()
         {
+
         }
 
         /// <summary>

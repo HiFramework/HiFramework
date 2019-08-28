@@ -14,7 +14,6 @@ namespace HiFramework
             Bind<IEvent>().To<EventComponent>();
             Bind<IIO>().To<IOComponent>();
             Bind<IInject>().To<InjectComponent>();
-            Bind<IObjectManager>().To<ObjectsManager>();
         }
     }
 }

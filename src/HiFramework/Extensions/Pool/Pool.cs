@@ -7,47 +7,51 @@
 using System;
 using System.Collections.Generic;
 
-
 namespace HiFramework
 {
-    public class Pool<T> : IPool<T> where T : class, IPoolObject
+    public class Pool<T> 
     {
-        private List<IPoolObject> _objects = new List<IPoolObject>();
+        private readonly List<T> _objects = new List<T>();
+        private IPoolObjectHanlder<T> _hanlder;
 
         public int Count
         {
             get { return _objects.Count; }
         }
 
-        public T GetOneObjectFromPool()
+        public Pool(IPoolObjectHanlder<T> handler)
         {
-            IPoolObject obj = null;
+            _hanlder = handler;
+        }
+
+        public T GetObjectFromPool()
+        {
+            T t;
             if (_objects.Count > 0)
             {
-                obj = _objects[0];
-                obj.OnObjectOutPool();
+                t = _objects[0];
                 _objects.RemoveAt(0);
+                _hanlder.OnObjectOutPool(t);
             }
             else
             {
-                obj = Activator.CreateInstance<T>();
-                obj.OnObjectCreate();
+                t = _hanlder.OnObjectCreated();
             }
-            return obj as T;
+            return t;
         }
 
-        public void RecleimThisObjectToPool(T t)
+        public void RecleimObjectToPool(T t)
         {
             AssertThat.IsFalse(_objects.Contains(t), "Already have this object");
             _objects.Add(t);
-            t.OnObjectInPool();
+            _hanlder.OnObjectInPool(t);
         }
 
-        public void DisposeAll()
+        public void Dispose()
         {
             for (int i = 0; i < _objects.Count; i++)
             {
-                _objects[i].OnObjectDispose();
+                _hanlder.OnObjectDestroy(_objects[i]);
             }
             _objects.Clear();
         }
