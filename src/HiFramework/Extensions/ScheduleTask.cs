@@ -19,6 +19,9 @@ namespace HiFramework
     {
         private Action _task;
 
+        private System.Timers.Timer _firstTimer;
+        private System.Timers.Timer _tickTimer;
+
         /// <summary>
         /// A new _task
         /// </summary>
@@ -40,10 +43,10 @@ namespace HiFramework
                 TimeSpan ts = new TimeSpan(1, 0, 0, 0);
                 offsetTime = (offset + ts).TotalMilliseconds;
             }
-            System.Timers.Timer t = new System.Timers.Timer(offsetTime);
-            t.Elapsed += FirstElapsed;
-            t.AutoReset = false;
-            t.Enabled = true;
+            _firstTimer = new System.Timers.Timer(offsetTime);
+            _firstTimer.Elapsed += FirstElapsed;
+            _firstTimer.AutoReset = false;
+            _firstTimer.Enabled = true;
         }
 
         void FirstElapsed(object source, System.Timers.ElapsedEventArgs e)
@@ -51,10 +54,10 @@ namespace HiFramework
             Execute();
             TimeSpan ts = new TimeSpan(1, 0, 0, 0);
             var offsetTime = ts.TotalMilliseconds;
-            System.Timers.Timer t = new System.Timers.Timer(offsetTime);
-            t.Elapsed += TickElapsed;
-            t.AutoReset = true;
-            t.Enabled = true;
+            _tickTimer = new System.Timers.Timer(offsetTime);
+            _tickTimer.Elapsed += TickElapsed;
+            _tickTimer.AutoReset = true;
+            _tickTimer.Enabled = true;
         }
 
         void TickElapsed(object source, System.Timers.ElapsedEventArgs e)
@@ -68,6 +71,12 @@ namespace HiFramework
             {
                 _task.Invoke();
             }
+        }
+
+        public void Stop()
+        {
+            _firstTimer.Enabled = false;
+            _tickTimer.Enabled = false;
         }
     }
 }
