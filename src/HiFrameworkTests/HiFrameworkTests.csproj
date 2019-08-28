@@ -68,6 +68,7 @@
     <Compile Include="Components\Signal\SignalComponentTests.cs" />
     <Compile Include="Core\CenterTests.cs" />
     <Compile Include="Extensions\BlockBuffer\BlockBufferTests.cs" />
+    <Compile Include="Extensions\CircleBuffer\CircleBufferTests.cs" />
     <Compile Include="Extensions\Pool\PoolTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
