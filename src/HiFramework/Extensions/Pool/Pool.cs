@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace HiFramework
 {
-    public class Pool<T> 
+    public class Pool<T> : IPool<T>
     {
         private readonly List<T> _objects = new List<T>();
         private IPoolObjectHanlder<T> _hanlder;
@@ -24,7 +24,7 @@ namespace HiFramework
             _hanlder = handler;
         }
 
-        public T GetObjectFromPool()
+        public T GetObject()
         {
             T t;
             if (_objects.Count > 0)
@@ -40,7 +40,28 @@ namespace HiFramework
             return t;
         }
 
-        public void RecleimObjectToPool(T t)
+        /// <summary>
+        /// Get object async
+        /// </summary>
+        /// <returns></returns>
+        public void GetObjectAsync(Action<T> onFinish)
+        {
+            T t;
+            if (_objects.Count > 0)
+            {
+                t = _objects[0];
+                _objects.RemoveAt(0);
+                _hanlder.OnObjectOutPool(t);
+                onFinish(t);
+            }
+            else
+            {
+                _hanlder.OnObjectCreatedAsync(onFinish);
+            }
+        }
+
+
+        public void RecleimObject(T t)
         {
             AssertThat.IsFalse(_objects.Contains(t), "Already have this object");
             _objects.Add(t);

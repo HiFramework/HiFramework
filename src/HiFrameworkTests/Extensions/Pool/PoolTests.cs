@@ -14,20 +14,20 @@ namespace HiFramework.Tests
         [TestMethod()]
         public void GetObjectFromPoolTest()
         {
-            var pool = new Pool<OneObject>(new ObjectHandler());
-            var obj = pool.GetObjectFromPool();
+            IPool<OneObject> pool = new Pool<OneObject>(new ObjectHandler());
+            var obj = pool.GetObject();
             Assert.AreEqual(obj.x, 10);
             Assert.AreEqual(pool.Count, 0);
-            pool.RecleimObjectToPool(obj);
+            pool.RecleimObject(obj);
             Assert.AreEqual(pool.Count, 1);
         }
 
         [TestMethod()]
         public void RecleimObjectToPoolTest()
         {
-            var pool = new Pool<OneObject>(new ObjectHandler());
-            var obj = pool.GetObjectFromPool();
-            pool.RecleimObjectToPool(obj);
+            IPool<OneObject> pool = new Pool<OneObject>(new ObjectHandler());
+            var obj = pool.GetObject();
+            pool.RecleimObject(obj);
         }
 
         [TestMethod()]
@@ -45,6 +45,14 @@ namespace HiFramework.Tests
                     x = 10
                 };
                 return o;
+            }
+
+            /// <summary>
+            /// When object created async
+            /// </summary>
+            public void OnObjectCreatedAsync(Action<OneObject> onFinish)
+            {
+
             }
 
             public void OnObjectDestroy(OneObject o)
