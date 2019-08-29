@@ -9,17 +9,14 @@ using System;
 namespace HiFramework
 {
     /// <summary>
-    /// 新float类型,自动保留小数点后两位
+    /// 新float类型,自动保留Length位小数
     /// </summary>
     [Serializable]
     public struct HiFloat
     {
-        public float Value
-        {
-            get { return _value; }
-        }
+        public static int Length = 2;
+
         private float _value;
-        private const int Length = 2;
 
         private HiFloat(float value)
         {
@@ -33,32 +30,32 @@ namespace HiFramework
 
         public static bool operator ==(HiFloat left, HiFloat right)
         {
-            return left.Value == right.Value;
+            return left._value == right._value;
         }
 
         public static bool operator !=(HiFloat left, HiFloat right)
         {
-            return left.Value != right.Value;
+            return left._value != right._value;
         }
 
         public static bool operator <(HiFloat left, HiFloat right)
         {
-            return left.Value < right.Value;
+            return left._value < right._value;
         }
 
         public static bool operator >(HiFloat left, HiFloat right)
         {
-            return left.Value > right.Value;
+            return left._value > right._value;
         }
 
         public static bool operator <=(HiFloat left, HiFloat right)
         {
-            return left.Value <= right.Value;
+            return left._value <= right._value;
         }
 
         public static bool operator >=(HiFloat left, HiFloat right)
         {
-            return left.Value >= right.Value;
+            return left._value >= right._value;
         }
 
         public static HiFloat operator ++(HiFloat value)
@@ -78,7 +75,7 @@ namespace HiFramework
                 return false;
             }
             var other = (HiFloat)obj;
-            return Value == other.Value;
+            return _value == other._value;
         }
     }
 }
