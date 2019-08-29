@@ -41,8 +41,6 @@
   <ItemGroup>
     <Compile Include="Extensions\Pool\IPool.cs" />
     <Compile Include="Extensions\ScheduleTask.cs" />
-    <Compile Include="Extensions\ThreadTask\IThreadTask.cs" />
-    <Compile Include="Extensions\ThreadTask\TheadTask.cs" />
     <Compile Include="HiFrameworkBinder.cs" />
     <Compile Include="Common\AssertThat.cs" />
     <Compile Include="Common\ConsoleLogger.cs" />
