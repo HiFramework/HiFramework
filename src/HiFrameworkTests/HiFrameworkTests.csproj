@@ -65,6 +65,7 @@
     <Compile Include="Common\LogTests.cs" />
     <Compile Include="Components\Event\EventComponentTests.cs" />
     <Compile Include="Components\Inject\InjectComponentTests.cs" />
+    <Compile Include="Components\IO\IOComponentTests.cs" />
     <Compile Include="Components\Signal\SignalComponentTests.cs" />
     <Compile Include="Core\CenterTests.cs" />
     <Compile Include="Extensions\BlockBuffer\BlockBufferTests.cs" />

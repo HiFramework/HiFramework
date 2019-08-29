@@ -11,18 +11,6 @@ namespace HiFramework.Tests
     [TestClass()]
     public class PoolTests
     {
-        [TestInitialize]
-        public void Init()
-        {
-            Center.Init(new HiFrameworkBinder());
-        }
-
-        [TestCleanup]
-        public void Close()
-        {
-            Center.Dispose();
-        }
-
         [TestMethod()]
         public void GetObjectFromPoolTest()
         {
@@ -45,6 +33,7 @@ namespace HiFramework.Tests
         [TestMethod()]
         public void DisposeTest()
         {
+
         }
 
         private class ObjectHandler : IPoolObjectHanlder<OneObject>

@@ -4,6 +4,7 @@
  * Document: https://github.com/hiramtan/HiFramework
  * Author: hiramtan@live.com
  ****************************************************************************/
+
 using System;
 
 namespace HiFramework
@@ -15,6 +16,11 @@ namespace HiFramework
     public struct HiFloat
     {
         public static int Length = 2;
+
+        public float Value
+        {
+            get { return _value; }
+        }
 
         private float _value;
 

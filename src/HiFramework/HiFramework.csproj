@@ -79,7 +79,6 @@
     <Compile Include="Extensions\BlockBuffer\IBlockBuffer.cs" />
     <Compile Include="Extensions\CircleBuffer\CircleBuffer.cs" />
     <Compile Include="Extensions\CircleBuffer\ICircleBuffer.cs" />
-    <Compile Include="Extensions\FastDictionary.cs" />
     <Compile Include="Extensions\HiFloat.cs" />
     <Compile Include="Extensions\ObjectBase.cs" />
     <Compile Include="Extensions\Pool\IPoolObjectHanlder.cs" />
@@ -87,8 +86,6 @@
     <Compile Include="Extensions\Singleton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\Localization\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

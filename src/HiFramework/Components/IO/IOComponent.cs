@@ -8,86 +8,103 @@
 using System;
 using System.IO;
 
-
 namespace HiFramework
 {
     internal class IOComponent : ComponentBase, IIO
     {
-        public bool IsFolderExist(string path)
+        /// <summary>
+        /// 递归复制文件夹
+        /// </summary>
+        /// <param name="sourceDirName"></param>
+        /// <param name="destDirName"></param>
+        public void DirectoryCopy(string sourceDirName, string destDirName)
         {
-            return Directory.Exists(path);
-        }
+            // Get the subdirectories for the specified directory.
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
 
-        public void CreateFolder(string path)
-        {
-            AssertThat.IsFalse(IsFileExist(path));
-            Directory.CreateDirectory(path);
-        }
-
-        public void CopyFolder(string sourcePath, string destinationPath)
-        {
-            AssertThat.IsTrue(IsFileExist(sourcePath));
-            AssertThat.IsFalse(IsFileExist(destinationPath));
-            CreateFolder(destinationPath);
-            var tempFiles = Directory.GetFiles(sourcePath);
-            foreach (var variable in tempFiles)
+            if (!dir.Exists)
             {
-                var tempFileName = Path.GetFileName(variable);
-                var tempDestName = Path.Combine(destinationPath, tempFileName);
-                File.Copy(variable, tempDestName, true);
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
             }
-            var tempDirs = Directory.GetDirectories(sourcePath);
-            foreach (var variable in tempDirs)
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            // If the destination directory doesn't exist, create it.
+            if (!Directory.Exists(destDirName))
             {
-                var tempDirName = Path.GetFileName(variable);
-                var tempDestDirName = Path.Combine(destinationPath, tempDirName);
-                CopyFolder(variable, tempDestDirName);
+                Directory.CreateDirectory(destDirName);
+            }
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string temppath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(temppath, false);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location.
+            if (true)
+            {
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    string temppath = Path.Combine(destDirName, subdir.Name);
+                    DirectoryCopy(subdir.FullName, temppath);
+                }
             }
         }
 
-        public void DeleteFolder(string path)
-        {
-            AssertThat.IsTrue(IsFolderExist(path));
-            Directory.Delete(path, true); //第二个参数：删除子目录
-        }
-
-        public bool IsFileExist(string path)
-        {
-            return File.Exists(path);
-        }
-
+        /// <summary>
+        /// 读取文件
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public byte[] ReadFile(string path)
         {
-            AssertThat.IsTrue(IsFileExist(path));
+            AssertThat.IsTrue(File.Exists(path));
             using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 var bytes = new byte[fs.Length];
-                fs.Read(bytes, 0, (int) fs.Length);
+                fs.Read(bytes, 0, (int)fs.Length);
                 fs.Close();
                 return bytes;
             }
         }
 
-        public void ReadFileAsync(Action<byte[]> action, string path)
+        /// <summary>
+        /// 异步读取文件
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="onFinish"></param>
+        public void ReadFileAsync(string path, Action<byte[]> onFinish)
         {
-            AssertThat.IsTrue(IsFileExist(path));
+            AssertThat.IsTrue(File.Exists(path));
             using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 var bytes = new byte[fs.Length];
-                fs.BeginRead(bytes, 0, (int) fs.Length, temp =>
-                {
-                    var tempFileStream = (FileStream) temp.AsyncState;
-                    tempFileStream.EndRead(temp);
-                    tempFileStream.Close();
-                    action(bytes);
-                }, fs);
+                fs.BeginRead(bytes, 0, (int)fs.Length, temp =>
+               {
+                   var tempFileStream = (FileStream)temp.AsyncState;
+                   tempFileStream.EndRead(temp);
+                   tempFileStream.Close();
+                   onFinish(bytes);
+               }, fs);
             }
         }
 
+        /// <summary>
+        /// 写入文件
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="bytes"></param>
         public void WriteFile(string path, byte[] bytes)
         {
             var directory = Path.GetDirectoryName(path);
-            CreateFolder(directory);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
             using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write))
             {
                 fs.Seek(0, SeekOrigin.End);
@@ -96,44 +113,40 @@ namespace HiFramework
             }
         }
 
-        public void WriteFileAsync(Action action, string path, byte[] bytes)
+        /// <summary>
+        /// 异步写入文件
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="bytes"></param>
+        /// <param name="onFinish"></param>
+        public void WriteFileAsync(string path, byte[] bytes, Action onFinish)
         {
             var directory = Path.GetDirectoryName(path);
-            CreateFolder(directory);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
             using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write))
             {
                 fs.Seek(0, SeekOrigin.End);
                 fs.BeginWrite(bytes, 0, bytes.Length, temp =>
                 {
-                    var tempFileStream = (FileStream) temp.AsyncState;
+                    var tempFileStream = (FileStream)temp.AsyncState;
                     tempFileStream.EndWrite(temp);
                     tempFileStream.Close();
-                    action();
+                    onFinish();
                 }, fs);
             }
         }
 
-        public void CopyFile(string sourcePath, string destPath)
-        {
-            AssertThat.IsTrue(IsFileExist(sourcePath));
-            AssertThat.IsFalse(IsFileExist(destPath));
-            var directory = Path.GetDirectoryName(destPath);
-            CreateFolder(directory);
-            File.Copy(sourcePath, destPath, true);
-        }
-
-        public void DeleteFile(string path)
-        {
-            AssertThat.IsTrue(IsFileExist(path));
-            File.Delete(path);
-        }
-
         public override void OnCreated()
         {
+
         }
 
         public override void OnDestroy()
         {
+
         }
     }
 }
