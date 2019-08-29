@@ -15,7 +15,7 @@ namespace HiFramework
         /// </summary>
         /// <param name="key"></param>
         /// <param name="action"></param>
-        void Subscribe(string key, Action action);
+        void Subscribe(string key, System.Action action);
 
         /// <summary>
         /// Subscribe with one param action

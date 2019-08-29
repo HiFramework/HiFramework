@@ -16,16 +16,16 @@ namespace HiFramework
         /// <summary>
         /// Hold the events user registed
         /// </summary>
-        private readonly Dictionary<string, List<ActionBase>> _container = new Dictionary<string, List<ActionBase>>();
+        private readonly Dictionary<string, List<EventBase>> _container = new Dictionary<string, List<EventBase>>();
 
         /// <summary>
         /// Subscribe event with no param
         /// </summary>
         /// <param name="key"></param>
         /// <param name="action"></param>
-        public void Subscribe(string key, Action action)
+        public void Subscribe(string key, System.Action action)
         {
-            var handler = new Action_0(action);
+            var handler = new Event(action);
             RegistHandler(key, handler);
         }
 
@@ -37,7 +37,7 @@ namespace HiFramework
         /// <param name="action"></param>
         public void Subscribe<T>(string key, Action<T> action)
         {
-            var handler = new Action_1<T>(action);
+            var handler = new Event<T>(action);
             RegistHandler(key, handler);
         }
 
@@ -50,7 +50,7 @@ namespace HiFramework
         /// <param name="action"></param>
         public void Subscribe<T, U>(string key, Action<T, U> action)
         {
-            var handler = new Action_2<T, U>(action);
+            var handler = new Event<T, U>(action);
             RegistHandler(key, handler);
         }
 
@@ -64,7 +64,7 @@ namespace HiFramework
         /// <param name="action"></param>
         public void Subscribe<T, U, V>(string key, Action<T, U, V> action)
         {
-            var handler = new Action_3<T, U, V>(action);
+            var handler = new Event<T, U, V>(action);
             RegistHandler(key, handler);
         }
 
@@ -79,7 +79,7 @@ namespace HiFramework
         /// <param name="action"></param>
         public void Subscribe<T, U, V, W>(string key, Action<T, U, V, W> action)
         {
-            var handler = new Action_4<T, U, V, W>(action);
+            var handler = new Event<T, U, V, W>(action);
             RegistHandler(key, handler);
         }
 
@@ -88,7 +88,7 @@ namespace HiFramework
         /// </summary>
         /// <param name="key"></param>
         /// <param name="handler"></param>
-        private void RegistHandler(string key, ActionBase handler)
+        private void RegistHandler(string key, EventBase handler)
         {
             if (_container.ContainsKey(key))
             {
@@ -96,7 +96,7 @@ namespace HiFramework
             }
             else
             {
-                var list = new List<ActionBase>();
+                var list = new List<EventBase>();
                 list.Add(handler);
                 _container.Add(key, list);
             }
@@ -109,7 +109,7 @@ namespace HiFramework
         /// <param name="obj"></param>
         public void Dispatch(string key, params object[] obj)
         {
-            List<ActionBase> v = null;
+            List<EventBase> v = null;
             var isTrue = _container.TryGetValue(key, out v);
             AssertThat.IsTrue(isTrue, "Do not have this key");
             foreach (var info in v)

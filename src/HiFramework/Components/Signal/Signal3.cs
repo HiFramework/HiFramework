@@ -9,7 +9,7 @@ using System;
 
 namespace HiFramework
 {
-    public class Signal_3<T1, T2, T3>
+    public class Signal<T1, T2, T3>
     {
         private Action<T1, T2, T3> _action;
 

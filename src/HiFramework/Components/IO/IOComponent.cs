@@ -119,7 +119,7 @@ namespace HiFramework
         /// <param name="path"></param>
         /// <param name="bytes"></param>
         /// <param name="onFinish"></param>
-        public void WriteFileAsync(string path, byte[] bytes, Action onFinish)
+        public void WriteFileAsync(string path, byte[] bytes, System.Action onFinish)
         {
             var directory = Path.GetDirectoryName(path);
             if (!Directory.Exists(directory))

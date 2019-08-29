@@ -44,6 +44,6 @@ namespace HiFramework
         /// <param name="action"></param>
         /// <param name="path"></param>
         /// <param name="bytes"></param>
-        void WriteFileAsync(string path, byte[] bytes, Action onFinish);
+        void WriteFileAsync(string path, byte[] bytes, System.Action onFinish);
     }
 }

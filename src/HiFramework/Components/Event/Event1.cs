@@ -9,19 +9,23 @@ using System;
 
 namespace HiFramework
 {
-    internal class Action_4<T, U, V, W> : ActionBase
+    /// <summary>
+    /// 一个参数类型的回调
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    internal class Event<T> : EventBase
     {
-        private Action<T, U, V, W> _action;
-        public Action_4(Action<T, U, V, W> action)
+        private Action<T> _action;
+        public Event(Action<T> action)
         {
             _action = action;
         }
 
         public override void Dispatch(params object[] objects)
         {
-            if (objects != null && objects.Length == 4)
+            if (objects != null && objects.Length == 1 && objects[0] is T)
             {
-                _action((T)objects[0], (U)objects[1], (V)objects[2], (W)objects[3]);
+                _action((T)objects[0]);
             }
             else
             {

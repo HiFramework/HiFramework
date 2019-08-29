@@ -12,10 +12,10 @@ namespace HiFramework
     /// <summary>
     /// 无参数回调
     /// </summary>
-    internal class Action_0 : ActionBase
+    internal class Event : EventBase
     {
-        private Action _action;
-        public Action_0(Action action)
+        private System.Action _action;
+        public Event(System.Action action)
         {
             _action = action;
         }

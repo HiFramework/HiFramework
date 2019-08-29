@@ -9,7 +9,7 @@ using System;
 
 namespace HiFramework
 {
-    abstract class ActionBase
+    abstract class EventBase
     {
         /// <summary>
         /// 派发事件

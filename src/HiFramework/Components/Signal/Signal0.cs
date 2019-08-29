@@ -12,14 +12,14 @@ namespace HiFramework
     public class Signal
     {
 
-        private Action _action;
+        private System.Action _action;
 
-        public void AddListener(Action action)
+        public void AddListener(System.Action action)
         {
             _action += action;
         }
 
-        public void RemoveListener(Action action)
+        public void RemoveListener(System.Action action)
         {
             _action -= action;
         }

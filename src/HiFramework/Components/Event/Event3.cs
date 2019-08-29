@@ -9,10 +9,10 @@ using System;
 
 namespace HiFramework
 {
-    internal class Action_3<T, U, V> : ActionBase
+    internal class Event<T, U, V> : EventBase
     {
         private Action<T, U, V> _action;
-        public Action_3(Action<T, U, V> action)
+        public Event(Action<T, U, V> action)
         {
             _action = action;
         }

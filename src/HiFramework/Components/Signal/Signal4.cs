@@ -8,7 +8,7 @@ using System;
 
 namespace HiFramework.Components
 {
-    public class Signal_4<T1, T2, T3, T4>
+    public class Signal<T1, T2, T3, T4>
     {
         private Action<T1, T2, T3, T4> _action;
 

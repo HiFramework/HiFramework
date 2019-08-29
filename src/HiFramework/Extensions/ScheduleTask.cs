@@ -15,7 +15,7 @@ namespace HiFramework
     public class ScheduleTask : IDisposable
     {
         private string _time;
-        private Action _task;
+        private System.Action _task;
 
         private System.Timers.Timer _firstTimer;
         private System.Timers.Timer _tickTimer;
@@ -25,7 +25,7 @@ namespace HiFramework
         /// </summary>
         /// <param name="time">"14:20"</param>
         /// <param name="task"></param>
-        public ScheduleTask(string time, Action task)
+        public ScheduleTask(string time, System.Action task)
         {
             _time = time;
             _task = task;
