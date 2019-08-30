@@ -1,5 +1,6 @@
 ﻿/****************************************************************************
  * Description:Circle buffer is fixed size and reuse
+ * Donn't automatical change array size
  *
  * Author: hiramtan@live.com
  ****************************************************************************/

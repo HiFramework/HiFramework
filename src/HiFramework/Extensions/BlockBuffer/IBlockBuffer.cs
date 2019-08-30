@@ -1,5 +1,6 @@
 ﻿/****************************************************************************
  * Description:BlockBuffer can dynamic extend
+ * Will automatical change array size
  *
  * Author: hiramtan@live.com
  ****************************************************************************/

@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\Cmd.cs" />
     <Compile Include="Extensions\Fsm\Fsm.cs" />
     <Compile Include="Extensions\Fsm\IFsm.cs" />
     <Compile Include="Extensions\Fsm\IState.cs" />
