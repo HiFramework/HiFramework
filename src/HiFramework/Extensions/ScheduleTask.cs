@@ -53,13 +53,13 @@ namespace HiFramework
 
         void FirstElapsed(object source, System.Timers.ElapsedEventArgs e)
         {
-            Execute();
             TimeSpan ts = new TimeSpan(1, 0, 0, 0);
             var offsetTime = ts.TotalMilliseconds;
             _tickTimer = new System.Timers.Timer(offsetTime);
             _tickTimer.Elapsed += TickElapsed;
             _tickTimer.AutoReset = true;
             _tickTimer.Enabled = true;
+            Execute();
         }
 
         void TickElapsed(object source, System.Timers.ElapsedEventArgs e)

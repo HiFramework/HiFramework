@@ -70,6 +70,7 @@
     <Compile Include="Core\CenterTests.cs" />
     <Compile Include="Extensions\BlockBuffer\BlockBufferTests.cs" />
     <Compile Include="Extensions\CircleBuffer\CircleBufferTests.cs" />
+    <Compile Include="Extensions\Fsm\FsmTests.cs" />
     <Compile Include="Extensions\HiFloatTest.cs" />
     <Compile Include="Extensions\Pool\PoolTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
