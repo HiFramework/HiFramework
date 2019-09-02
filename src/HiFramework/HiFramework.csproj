@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\AStar\AStar.cs" />
+    <Compile Include="Extensions\AStar\Searcher.cs" />
+    <Compile Include="Extensions\AStar\Node.cs" />
     <Compile Include="Extensions\Cmd.cs" />
     <Compile Include="Extensions\Fsm\Fsm.cs" />
     <Compile Include="Extensions\Fsm\IFsm.cs" />
