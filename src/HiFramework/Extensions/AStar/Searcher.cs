@@ -62,13 +62,28 @@ namespace HiFramework
         /// <returns></returns>
         public List<Node> Find(Node start, Node end)
         {
+            _startNode = start;
+            _endNode = end;
             _openList.Add(start);
             Recursion();
             return _path;
         }
 
+        /// <summary>
+        /// Find path async
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="onFinish"></param>
+        public void Find(Node start, Node end, Action<List<Node>> onFinish)
+        {
+            Find(start, end);
+            onFinish.Invoke(_path);
+        }
+
         private void Recursion()
         {
+            List<Node> tempNeedAddNodes = new List<Node>();
             for (int i = 0; i < _openList.Count; i++)
             {
                 var currentNode = _openList[i];
@@ -83,24 +98,44 @@ namespace HiFramework
                     if (_counter <= _maxNodeCount)
                     {
                         var nextNode = currentNode.SurroundNodes[j];
-                        if (IsInOpenList(nextNode))
-                        {
-                            var oldValue = nextNode.F;
-                            var currentValue = currentNode.F + nextNode.Cost + nextNode.H;
-                            if (currentValue < oldValue)//use new
-                            {
-                                nextNode.F = currentValue;
-                                nextNode.ParentNode = currentNode;
-                            }
-                        }
                         if (IsInCloseList(nextNode))
                         {
                             continue;
                         }
-                        AddInOpenList(nextNode);
+                        if (IsInOpenList(nextNode))
+                        {
+                            var oldNodeValue = nextNode.F;
+                            var nextNodeValue = currentNode.F + nextNode.Cost + nextNode.H;
+                            if (nextNodeValue < oldNodeValue) //use new
+                            {
+                                nextNode.G = currentNode.F;
+                                nextNode.ParentNode = currentNode;
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            nextNode.ParentNode = currentNode;
+                            nextNode.G = currentNode.F;
+                            if (!tempNeedAddNodes.Contains(nextNode))
+                            {
+                                tempNeedAddNodes.Add(nextNode);
+                            }
+                        }
                     }
                 }
+                RemoveFromOpenList(currentNode);
                 AddInCloseList(currentNode);
+            }
+
+            for (int i = 0; i < tempNeedAddNodes.Count; i++)
+            {
+                AddInOpenList(tempNeedAddNodes[i]);
+            }
+
+            if (_openList.Count > 0)
+            {
+                Recursion();
             }
         }
 
@@ -130,7 +165,22 @@ namespace HiFramework
         /// <param name="node"></param>
         private void AddInOpenList(Node node)
         {
-            _openList.Add(node);
+            if (!_openList.Contains(node))
+            {
+                _openList.Add(node);
+            }
+        }
+
+        /// <summary>
+        /// Remove from open list
+        /// </summary>
+        /// <param name="node"></param>
+        private void RemoveFromOpenList(Node node)
+        {
+            if (_openList.Contains(node))
+            {
+                _openList.Remove(node);
+            }
         }
 
         /// <summary>
@@ -139,7 +189,10 @@ namespace HiFramework
         /// <param name="node"></param>
         private void AddInCloseList(Node node)
         {
-            _openList.Add(node);
+            if (!_closeList.Contains(node))
+            {
+                _closeList.Add(node);
+            }
         }
 
         /// <summary>
@@ -148,6 +201,8 @@ namespace HiFramework
         /// <param name="node"></param>
         private void Success(Node node)
         {
+            _openList.Clear();
+            _closeList.Clear();
             while (node != null)
             {
                 _path.Insert(0, node);

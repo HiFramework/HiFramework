@@ -7,8 +7,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 
 namespace HiFramework
 {
@@ -36,9 +35,10 @@ namespace HiFramework
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <param name="callback"></param>
-        public static void Find(Node start, Node end, AsyncCallback callback)
+        public static void Find(Node start, Node end, Action<List<Node>> OnFinish)
         {
-
+            Thread t = new Thread(() => { new Searcher(MaxNodeCount).Find(start, end, OnFinish); });
+            t.Start();
         }
     }
 }

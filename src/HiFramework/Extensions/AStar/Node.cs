@@ -32,7 +32,10 @@ namespace HiFramework
         /// <summary>
         /// Total cost
         /// </summary>
-        internal float F;
+        internal float F
+        {
+            get { return G + H + Cost; }
+        }
 
         /// <summary>
         /// Cost from start node
