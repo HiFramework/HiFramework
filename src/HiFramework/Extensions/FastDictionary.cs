@@ -7,9 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace HiFramework
 {
@@ -49,11 +46,11 @@ namespace HiFramework
                 TryGet(key, out value);
                 return value;
             }
-            set { Set(key, value); }
+            set { TrySet(key, value); }
         }
 
 
-        private bool TryGet(TKey key, out TValue value)
+        public bool TryGet(TKey key, out TValue value)
         {
             for (int i = 0; i < _entries.Length; i++)
             {
@@ -67,19 +64,17 @@ namespace HiFramework
             return false;
         }
 
-        private void Set(TKey key, TValue value)
+        public bool TrySet(TKey key, TValue value)
         {
             TValue tValue;
             var isTrue = TryGet(key, out tValue);
             if (isTrue)
             {
-                throw new ArgumentException("Already have this key");
+                return false;
             }
-
             var entry = new Entry();
             entry.Key = key;
             entry.Value = value;
-
             if (_index < _entries.Length)
             {
                 _entries[_index] = entry;
@@ -95,6 +90,7 @@ namespace HiFramework
                 _entries[_index] = entry;
                 _index++;
             }
+            return true;
         }
     }
 }
