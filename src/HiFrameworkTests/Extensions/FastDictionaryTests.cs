@@ -17,11 +17,10 @@ namespace HiFramework.Tests
             FastDictionary<int, string> test1 = new FastDictionary<int, string>();
             test1[1] = "1";
             test1[2] = "2";
-
-            string test = test1[1];
-
-
             Assert.AreEqual(test1[1], "1");
+            string value;
+            Assert.IsTrue(test1.TryGet(1, out value));
+            Assert.AreEqual(value, "1");
         }
     }
 }
