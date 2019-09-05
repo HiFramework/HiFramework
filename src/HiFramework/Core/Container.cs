@@ -23,7 +23,7 @@ namespace HiFramework
         /// <summary>
         /// Instance infos
         /// </summary>
-        private readonly Dictionary<string, ComponentBase> _components = new Dictionary<string, ComponentBase>();
+        private readonly FastDictionary<string, ComponentBase> _components = new FastDictionary<string, ComponentBase>();
 
         public Container(Binder binder)
         {
@@ -38,9 +38,8 @@ namespace HiFramework
         internal T Get<T>() where T : class
         {
             var t = typeof(T);
-            ComponentBase componentBase = null;
-            _components.TryGetValue(t.FullName, out componentBase);
-            if (componentBase != null)
+            bool isTrue = _components.TryGet(t.FullName, out ComponentBase componentBase);
+            if (isTrue)
             {
                 return componentBase as T;
             }
@@ -65,11 +64,10 @@ namespace HiFramework
         internal void Remove<T>()
         {
             var t = typeof(T);
-            ComponentBase c = null;
-            _components.TryGetValue(t.FullName, out c);
-            if (c != null)
+            bool isTrue = _components.TryGet(t.FullName, out ComponentBase c);
+            if (isTrue)
             {
-                _components.Remove(t.FullName);
+                _components.TryRemove(t.FullName);
                 c.OnDestroy();
             }
             else
@@ -83,10 +81,11 @@ namespace HiFramework
         /// </summary>
         internal void Dispose()
         {
-            foreach (var component in _components)
+            var components = _components.GetAllValues();
+            foreach (var component in components)
             {
-                AssertThat.IsNotNull(component.Value, "Component is null" + component.Key);
-                component.Value.OnDestroy();
+                AssertThat.IsNotNull(component, "Component is null");
+                component.OnDestroy();
             }
             _components.Clear();
         }

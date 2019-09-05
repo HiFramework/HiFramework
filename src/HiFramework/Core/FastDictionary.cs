@@ -30,7 +30,7 @@ namespace HiFramework
 
         private IEqualityComparer<TKey> _comparer;
 
-        public FastDictionary(int size = 1 << 10)
+        public FastDictionary(int size = 1 << 7)
         {
             _size = size;
             _index = 0;
@@ -42,17 +42,21 @@ namespace HiFramework
         {
             get
             {
-                TValue value;
-                TryGet(key, out value);
+                TryGet(key, out TValue value);
                 return value;
             }
             set { TrySet(key, value); }
         }
 
+        public bool ContainsKey(TKey key)
+        {
+            return TryGet(key, out TValue value);
+        }
+
 
         public bool TryGet(TKey key, out TValue value)
         {
-            for (int i = 0; i < _entries.Length; i++)
+            for (int i = 0; i < _index; i++)
             {
                 if (_comparer.Equals(key, _entries[i].Key))
                 {
@@ -66,8 +70,7 @@ namespace HiFramework
 
         public bool TrySet(TKey key, TValue value)
         {
-            TValue tValue;
-            var isTrue = TryGet(key, out tValue);
+            var isTrue = TryGet(key, out TValue tValue);
             if (isTrue)
             {
                 return false;
@@ -85,12 +88,60 @@ namespace HiFramework
                 var capacity = _entries.Length + _size;
                 var newEntries = new Entry[capacity];
                 Buffer.BlockCopy(_entries, 0, newEntries, 0, _entries.Length);
-                _entries = null;//alloc
+                _entries = null;
                 _entries = newEntries;
                 _entries[_index] = entry;
                 _index++;
             }
             return true;
+        }
+
+        public bool TryRemove(TKey key)
+        {
+            bool isTrue = false;
+            int index = 0;
+            for (int i = 0; i < _index; i++)
+            {
+                if (_comparer.Equals(key, _entries[i].Key))
+                {
+                    index = i;
+                    isTrue = true;
+                }
+            }
+            if (isTrue)
+            {
+                for (int i = index; i < _index; i++)
+                {
+                    _entries[i] = _entries[i + 1];
+                }
+                _index--;
+            }
+            return isTrue;
+        }
+
+        public TKey[] GetAllKeys()
+        {
+            var keys = new TKey[_index];
+            for (int i = 0; i < _index; i++)
+            {
+                keys[i] = _entries[i].Key;
+            }
+            return keys;
+        }
+
+        public TValue[] GetAllValues()
+        {
+            var values = new TValue[_index];
+            for (int i = 0; i < _index; i++)
+            {
+                values[i] = _entries[i].Value;
+            }
+            return values;
+        }
+
+        public void Clear()
+        {
+            _index = 0;
         }
     }
 }

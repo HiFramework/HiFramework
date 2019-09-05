@@ -17,7 +17,7 @@ namespace HiFramework
         /// <summary>
         /// Contain bind infos
         /// </summary>
-        internal readonly Dictionary<Type, Type> BindInfos = new Dictionary<Type, Type>();
+        internal readonly FastDictionary<Type, Type> BindInfos = new FastDictionary<Type, Type>();
 
         /// <summary>
         /// For sub class fullfill bind logic
