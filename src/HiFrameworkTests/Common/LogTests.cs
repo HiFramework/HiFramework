@@ -38,6 +38,10 @@ namespace HiFramework.Tests
 
         class Logger : ILogHandler
         {
+            public event Action<string> OnInfo;
+            public event Action<string> OnWarning;
+            public event Action<string> OnError;
+
             public void Info(params object[] args)
             {
 

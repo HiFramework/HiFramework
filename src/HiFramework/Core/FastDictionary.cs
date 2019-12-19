@@ -30,7 +30,7 @@ namespace HiFramework
 
         private IEqualityComparer<TKey> _comparer;
 
-        public FastDictionary(int size = 1 << 7)
+        public FastDictionary(int size = 1 << 6)
         {
             _size = size;
             _index = 0;

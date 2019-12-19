@@ -12,17 +12,20 @@ namespace HiFramework
     {
         public void Info(params object[] args)
         {
-            Console.WriteLine(Log.GetFormat("Info") + args);
+            var str = Log.GetFormat("Info") + args;
+            Console.WriteLine(str);
         }
 
         public void Warning(params object[] args)
         {
-            Console.WriteLine(Log.GetFormat("Warning") + args);
+            var str = Log.GetFormat("Warning") + args;
+            Console.WriteLine(str);
         }
 
         public void Error(params object[] args)
         {
-            Console.WriteLine(Log.GetFormat("Error") + args);
+            var str = Log.GetFormat("Error") + args;
+            Console.WriteLine(str);
         }
     }
 }
