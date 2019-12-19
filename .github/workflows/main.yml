@@ -9,5 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build With MSBuild
-      run: msbuild ./src/HiFramework.sln -p:Configuration=Release
+    - name: MSBuild
+      run: |
+       cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
+       .\MSBuild.exe $Env:GITHUB_WORKSPACE\src\HiFramework.sln
