@@ -1,5 +1,0 @@
-D:\MyGit\github\HiFramework\HiFramework\HiFramework.dll
-D:\MyGit\github\HiFramework\HiFramework\HiFramework.pdb
-D:\MyGit\github\HiFramework\src\HiFramework\obj\Release\HiFramework.csproj.CoreCompileInputs.cache
-D:\MyGit\github\HiFramework\src\HiFramework\obj\Release\HiFramework.dll
-D:\MyGit\github\HiFramework\src\HiFramework\obj\Release\HiFramework.pdb
