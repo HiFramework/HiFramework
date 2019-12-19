@@ -10,3 +10,5 @@
 
 
 ![ci](https://github.com/hiframework/hiframework/workflows/ci/badge.svg)
+
+![](https://github.com/hiframework/hiframework/workflows/ci/badge.svg)
