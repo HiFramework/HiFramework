@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
+using HiFramework;
 
-namespace HiFramework.Tests
+namespace HiFrameworkTests
 {
     [TestClass()]
     public class LogTests

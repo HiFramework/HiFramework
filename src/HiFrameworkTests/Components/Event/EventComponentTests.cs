@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace HiFramework.Tests
+using HiFramework;
+namespace HiFrameworkTests
 {
     [TestClass()]
     public class EventComponentTests

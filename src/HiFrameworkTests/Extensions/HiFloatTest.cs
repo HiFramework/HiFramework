@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using HiFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HiFramework.Tests
+namespace HiFrameworkTests
 {
     [TestClass]
     public class HiFloatTest

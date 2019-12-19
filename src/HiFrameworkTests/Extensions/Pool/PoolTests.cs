@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HiFramework.Tests
+namespace HiFrameworkTests
 {
     [TestClass()]
     public class PoolTests
