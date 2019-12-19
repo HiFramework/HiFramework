@@ -1,6 +1,6 @@
 # HiFramework
 
-![](https://github.com/hiframework/hiframework/workflows/.github/workflows/main.yml/badge.svg)
+![ci](https://github.com/hiframework/hiframework/workflows/.github/workflows/main.yml/badge.svg)
 
 
 
