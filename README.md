@@ -1,3 +1,3 @@
 # HiFramework
 
-![](https://github.com/actions/HiFramework/.github/workflows/main.yml/badge.svg)
+![](https://github.com/hiramtan/HiFramework/workflows/.github/workflows/main.yml/badge.svg)
